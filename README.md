@@ -22,8 +22,14 @@ Required user stories:
         - [9-ball scoresheet format!](9-ball-scoresheet.pdf)
 
 Optional user stories:
+- [ ]   Allow user to login to poolplayers.com and access data.
+- [ ]   Scoring screens provide drop-down/autocomplete options for the information user puts in for the scorekeeping, such as:
+        - Option to choose the league before starting a match
+        - Option to choose team from the teams registered in that league
+        - Option to choose player from registered players in the team
 - [ ]   Add options to keep score for other formats of pool games: 
         - 8-ball pool
         - Masters format (Combination of 8-ball and 9-ball Pool)
-- [ ]   Allow user to login to poolplayers.com and access data.
+- [ ]   User can create a profile with information like : Skill Level, Leagues they play in.
+- [ ]   User can view other users in the same league.
 
