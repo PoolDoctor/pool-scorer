@@ -14,6 +14,7 @@ class Player: NSObject {
     var skillLevel: Int?
     var firstName: String
     var lastName: String?
+    var timeOutsAllowed: Int = 1
     
     //Computer Properties
     var name: String {
