@@ -12,6 +12,7 @@
 		264F6AF11DD1987600A78B76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 264F6AEF1DD1987600A78B76 /* Main.storyboard */; };
 		264F6AF31DD1987600A78B76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 264F6AF21DD1987600A78B76 /* Assets.xcassets */; };
 		264F6AF61DD1987600A78B76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 264F6AF41DD1987600A78B76 /* LaunchScreen.storyboard */; };
+		9FCCC53BE05DEED74ADE7C6B /* Pods_PoolScorer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57141151C6D17F649DD52EF /* Pods_PoolScorer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,9 @@
 		264F6AF21DD1987600A78B76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		264F6AF51DD1987600A78B76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		264F6AF71DD1987600A78B76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B3FADB7E6D8B093576274A5 /* Pods-PoolScorer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoolScorer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PoolScorer/Pods-PoolScorer.debug.xcconfig"; sourceTree = "<group>"; };
+		A0E8AD067BA240598114296B /* Pods-PoolScorer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoolScorer.release.xcconfig"; path = "Pods/Target Support Files/Pods-PoolScorer/Pods-PoolScorer.release.xcconfig"; sourceTree = "<group>"; };
+		F57141151C6D17F649DD52EF /* Pods_PoolScorer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PoolScorer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FCCC53BE05DEED74ADE7C6B /* Pods_PoolScorer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1996EFE7D28119177F0F4C88 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8B3FADB7E6D8B093576274A5 /* Pods-PoolScorer.debug.xcconfig */,
+				A0E8AD067BA240598114296B /* Pods-PoolScorer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		264F6ADF1DD1987600A78B76 = {
 			isa = PBXGroup;
 			children = (
 				264F6AEA1DD1987600A78B76 /* PoolScorer */,
 				264F6AE91DD1987600A78B76 /* Products */,
+				1996EFE7D28119177F0F4C88 /* Pods */,
+				F344EE2FE91378121CD878D5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +80,14 @@
 			path = PoolScorer;
 			sourceTree = "<group>";
 		};
+		F344EE2FE91378121CD878D5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F57141151C6D17F649DD52EF /* Pods_PoolScorer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 264F6AFA1DD1987600A78B76 /* Build configuration list for PBXNativeTarget "PoolScorer" */;
 			buildPhases = (
+				0EEF5D8C4ECAA543F5C4AF8E /* [CP] Check Pods Manifest.lock */,
 				264F6AE41DD1987600A78B76 /* Sources */,
 				264F6AE51DD1987600A78B76 /* Frameworks */,
 				264F6AE61DD1987600A78B76 /* Resources */,
+				392A0B973E11D7B05895F621 /* [CP] Embed Pods Frameworks */,
+				4613FB376CEA4BB010BA30C8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,6 +157,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0EEF5D8C4ECAA543F5C4AF8E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		392A0B973E11D7B05895F621 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PoolScorer/Pods-PoolScorer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4613FB376CEA4BB010BA30C8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PoolScorer/Pods-PoolScorer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		264F6AE41DD1987600A78B76 /* Sources */ = {
@@ -256,6 +331,7 @@
 		};
 		264F6AFB1DD1987600A78B76 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B3FADB7E6D8B093576274A5 /* Pods-PoolScorer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PoolScorer/Info.plist;
@@ -268,6 +344,7 @@
 		};
 		264F6AFC1DD1987600A78B76 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0E8AD067BA240598114296B /* Pods-PoolScorer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PoolScorer/Info.plist;
@@ -297,6 +374,7 @@
 				264F6AFC1DD1987600A78B76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
