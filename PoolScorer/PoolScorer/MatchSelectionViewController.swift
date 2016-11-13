@@ -10,6 +10,14 @@ import UIKit
 
 class MatchSelectionViewController: UIViewController {
 
+    @IBOutlet weak var ballImage: UIImageView!
+    @IBAction func onResumePress(_ sender: AnyObject) {
+    }
+    @IBOutlet weak var onRecreational: UIButton!
+    @IBAction func onRecreational(_ sender: AnyObject) {
+    }
+    @IBAction func onLeaguePress(_ sender: AnyObject) {
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

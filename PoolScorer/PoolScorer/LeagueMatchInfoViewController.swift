@@ -10,11 +10,20 @@ import UIKit
 
 class LeagueMatchInfoViewController: UIViewController {
 
+    @IBAction func onConfirm(_ sender: AnyObject) {
+    }
+    @IBOutlet weak var firstTeamName: UITextField!
+    @IBOutlet weak var firstTeamId: UITextField!
+    @IBOutlet weak var secondTeamName: UITextField!
+    @IBOutlet weak var startTime: UITextField!
+    @IBOutlet weak var locationField: UITextField!
+    @IBOutlet weak var teamMemberNum: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    @IBOutlet weak var secondTeamId: UITextField!
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
