@@ -26,14 +26,16 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
         // Dispose of any resources that can be recreated.
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 5
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell  = tableView.dequeueReusableCell(withIdentifier: "MatchTableViewCell", for: indexPath) as! MatchTableViewCell
-        
+        cell.matchName.text = "Match \((indexPath.row + 1))"
+        cell.matchStatus.text = "In Progress"
+        cell.button.titleLabel?.text = "Resume"
         return cell
     }
 
