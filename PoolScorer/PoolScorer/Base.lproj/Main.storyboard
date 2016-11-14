@@ -228,13 +228,13 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="firstTeamId" destination="Rwt-xg-NDt" id="rLw-t2-c1Z"/>
-                        <outlet property="firstTeamName" destination="M1E-e2-ISG" id="TKM-CB-P9W"/>
+                        <outlet property="homeTeamId" destination="Rwt-xg-NDt" id="O8m-hP-5gi"/>
+                        <outlet property="homeTeamName" destination="M1E-e2-ISG" id="ElN-gc-6Xs"/>
                         <outlet property="locationField" destination="os8-14-puU" id="QYC-AB-MpA"/>
-                        <outlet property="secondTeamId" destination="CqW-5x-NJi" id="KKZ-uL-fML"/>
-                        <outlet property="secondTeamName" destination="qor-zT-B9a" id="aHG-Uc-QKK"/>
                         <outlet property="startTime" destination="Ow3-pb-GFH" id="Jcj-x8-34u"/>
                         <outlet property="teamMemberNum" destination="uXG-wt-yMd" id="cRT-Hu-bTa"/>
+                        <outlet property="visitTeamId" destination="CqW-5x-NJi" id="98q-8B-U1s"/>
+                        <outlet property="visitTeamName" destination="qor-zT-B9a" id="V2c-0S-qmh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wq8-V8-i0d" userLabel="First Responder" sceneMemberID="firstResponder"/>
