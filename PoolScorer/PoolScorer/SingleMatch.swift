@@ -20,6 +20,9 @@ class SingleMatch: NSObject {
     var p1Defenses: Int = 0
     var p2Defenses: Int = 0
     
+    var currentFrame: Frame {
+        return frames.last!
+    }
     var innings: Int {
         get {
             var innings = 0
@@ -61,6 +64,7 @@ class SingleMatch: NSObject {
     init(player1: Player, player2: Player) {
         self.player1 = player1
         self.player2 = player2
+        print ("Starting match between \(player1.name) and \(player2.name)")
     }
     
     enum MatchStatus {
@@ -71,12 +75,13 @@ class SingleMatch: NSObject {
     func startMatch(p1BrokeFirst: Bool) {
         self.p1BrokeFirst = p1BrokeFirst
         self.status = MatchStatus.Ongoing
-        startNewFrame()
+        frames.append(Frame(p1Needs: getPlayerTargetPoints(player: player1), p2Needs: getPlayerTargetPoints(player: player2), p1TimeOutsAllowed: player1.timeOutsAllowed, p2TimeOutsAllowed: player2.timeOutsAllowed))
     }
     
     func startNewFrame() {
-        frames.last?.endFrame()
-        frames.append(Frame(p1TimeOutsAllowed: player1.timeOutsAllowed, p2TimeOutsAllowed: player2.timeOutsAllowed))
+        if currentFrame.endFrame() == 0 { // Successfully ended the last frame
+            frames.append(Frame(p1Needs: (getPlayerTargetPoints(player: player1)-p1Score), p2Needs: (getPlayerTargetPoints(player: player2)-p2Score), p1TimeOutsAllowed: player1.timeOutsAllowed, p2TimeOutsAllowed: player2.timeOutsAllowed))
+        }
     }
     
     func finishMatch() {

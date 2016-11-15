@@ -39,6 +39,14 @@ class LeagueMatch: NSObject {
         
     }
     
+    func addMatch(index: Int, p1: Player, p2: Player) {
+        if matches[index] == nil {
+            matches[index] = NineBallSingleMatch(player1: p1, player2: p2)
+        } else {
+            print("Match \(index) is already populated.")
+        }
+    }
+    
     func saveMatch() {
         
     }

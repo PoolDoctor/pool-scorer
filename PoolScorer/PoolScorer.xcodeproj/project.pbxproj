@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		261335261DDB2DA500C0FFC6 /* testLeagueMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261335251DDB2DA500C0FFC6 /* testLeagueMatch.swift */; };
 		264F6AEC1DD1987600A78B76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264F6AEB1DD1987600A78B76 /* AppDelegate.swift */; };
 		264F6AF11DD1987600A78B76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 264F6AEF1DD1987600A78B76 /* Main.storyboard */; };
 		264F6AF31DD1987600A78B76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 264F6AF21DD1987600A78B76 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		261335251DDB2DA500C0FFC6 /* testLeagueMatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testLeagueMatch.swift; sourceTree = "<group>"; };
 		264F6AE81DD1987600A78B76 /* PoolScorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PoolScorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		264F6AEB1DD1987600A78B76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		264F6AF01DD1987600A78B76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				26B50AB21DD7951400ED3F48 /* LeagueMatch.swift */,
 				26B50AB41DD7951F00ED3F48 /* SingleMatch.swift */,
 				26B50AB61DD7952D00ED3F48 /* Frame.swift */,
+				261335251DDB2DA500C0FFC6 /* testLeagueMatch.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				26B50AB11DD791EC00ED3F48 /* Team.swift in Sources */,
 				26E748431DD8005900CBD047 /* LeagueMatchInfoViewController.swift in Sources */,
 				26B50AB31DD7951400ED3F48 /* LeagueMatch.swift in Sources */,
+				261335261DDB2DA500C0FFC6 /* testLeagueMatch.swift in Sources */,
 				26E748471DD803F900CBD047 /* SingleMatchScoringViewController.swift in Sources */,
 				26E748411DD7FC8C00CBD047 /* MatchSelectionViewController.swift in Sources */,
 				26B50AAF1DD78FD400ED3F48 /* Player.swift in Sources */,
