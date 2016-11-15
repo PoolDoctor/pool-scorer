@@ -14,7 +14,7 @@ class LeagueMatch: NSObject {
     var hostTeam: Team
     var visitingTeam: Team
     var location: String
-    //TODO : choose a better time for start and end time
+    //TODO : choose a better type for start and end time
     var startTime: Int
     var endTime: Int
     var hostTeamScore: Int
@@ -48,3 +48,4 @@ class LeagueMatch: NSObject {
     }
 
 }
+
