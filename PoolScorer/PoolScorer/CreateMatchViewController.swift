@@ -18,8 +18,10 @@ class CreateMatchViewController: UIViewController {
     @IBOutlet weak var secondPlayerNumber: UITextField!
     @IBOutlet weak var secondPlayerSkill: UITextField!
     @IBAction func startMatchAction(_ sender: Any) {
+    // Should increase matches number, which should then increase # of cells in the match tableview
     }
     @IBAction func enterScoreAction(_ sender: Any) {
+        // Should take us to a VC where we enter the score for a finished match
     }
     override func viewDidLoad() {
         super.viewDidLoad()
