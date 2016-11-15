@@ -13,6 +13,8 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
     @IBOutlet weak var firstTeamName: UILabel!
     @IBOutlet weak var secondTeamName: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    var leagueMatch : LeagueMatch?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -31,12 +33,21 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row + 1 <= leagueMatch!.matches.count) {
+            let cell  = tableView.dequeueReusableCell(withIdentifier: "MatchTableViewCell", for: indexPath) as! MatchTableViewCell
+            cell.matchName.text = "Match \((indexPath.row + 1))"
+            cell.matchStatus.text = "In Progress"
+            cell.button.titleLabel?.text = "Resume"
+            return cell
+        } else {
+            let cell = UITableViewCell()
+            //3A774B
+            cell.backgroundColor = UIColor(red: 0x3A, green: 0x77, blue: 0x4B, alpha: 1.0)
+            return cell
+        }
+    }
+    @IBAction func onAdd(_ sender: Any) {
         
-        let cell  = tableView.dequeueReusableCell(withIdentifier: "MatchTableViewCell", for: indexPath) as! MatchTableViewCell
-        cell.matchName.text = "Match \((indexPath.row + 1))"
-        cell.matchStatus.text = "In Progress"
-        cell.button.titleLabel?.text = "Resume"
-        return cell
     }
 
     /*

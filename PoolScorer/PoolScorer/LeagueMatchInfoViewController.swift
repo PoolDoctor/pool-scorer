@@ -11,11 +11,12 @@ import UIKit
 class LeagueMatchInfoViewController: UIViewController {
     var team1 : Team!
     var team2 : Team!
-    var match : LeagueMatch!
+    var leagueMatch : LeagueMatch!
     @IBAction func onConfirm(_ sender: AnyObject) {
         team1 = Team(name: homeTeamName.text!, teamId: Int(homeTeamId.text!)!, homeLocation: locationField.text!)
         team2 = Team(name: visitTeamName.text!, teamId: Int(visitTeamId.text!)!, homeLocation: locationField.text!)
-        match = LeagueMatch(hostTeam: team1, visitingTeam: team2)
+        leagueMatch = LeagueMatch(hostTeam: team1, visitingTeam: team2)
+        performSegue(withIdentifier: "pushToMatchesView", sender: leagueMatch)
         
     }
     @IBOutlet weak var homeTeamName: UITextField!
@@ -38,14 +39,18 @@ class LeagueMatchInfoViewController: UIViewController {
     }
     
     
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Passing league match to next VC
+        if (segue.identifier == "pushToMatchesView") {
+            let leagueMatch = sender as! LeagueMatch
+            let destVC = segue.destination as! LeagueMatchSummaryViewController
+            destVC.leagueMatch = leagueMatch
+            
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
 
 }
