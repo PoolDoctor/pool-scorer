@@ -48,6 +48,7 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
     
     func CreateMatchDelegate(createMatch: CreateMatchViewController, match: SingleMatch) {
         if (leagueMatch != nil) {
+            print ("Added the match to the array!")
             leagueMatch?.matches.append(match)
         }
         

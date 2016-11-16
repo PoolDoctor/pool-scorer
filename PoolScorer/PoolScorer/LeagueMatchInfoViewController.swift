@@ -44,7 +44,6 @@ class LeagueMatchInfoViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Passing league match to next VC
         if (segue.identifier == "pushToMatchesView") {
-            let leagueMatch = sender as! LeagueMatch
             let destVC = segue.destination as! LeagueMatchSummaryViewController
             destVC.leagueMatch = leagueMatch
             
