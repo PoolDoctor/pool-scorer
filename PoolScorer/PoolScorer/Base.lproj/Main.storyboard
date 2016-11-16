@@ -208,7 +208,6 @@
                                 </state>
                                 <connections>
                                     <action selector="onConfirm:" destination="Cl7-CF-3Za" eventType="touchUpInside" id="loq-bW-kQw"/>
-                                    <segue destination="mha-9n-PDr" kind="show" identifier="pushToMatchesView" id="eCj-HH-5cG"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -257,6 +256,7 @@
                         <outlet property="teamMemberNum" destination="uXG-wt-yMd" id="cRT-Hu-bTa"/>
                         <outlet property="visitTeamId" destination="CqW-5x-NJi" id="98q-8B-U1s"/>
                         <outlet property="visitTeamName" destination="qor-zT-B9a" id="V2c-0S-qmh"/>
+                        <segue destination="mha-9n-PDr" kind="show" id="ZGz-Wq-Ijd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wq8-V8-i0d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -522,6 +522,7 @@
                             <constraint firstItem="GD0-dp-Cxu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MCr-PH-p1H" secondAttribute="trailing" constant="15" id="7xR-7d-rSF"/>
                             <constraint firstItem="GcV-E6-mfQ" firstAttribute="leading" secondItem="MuS-L1-vBP" secondAttribute="leading" id="8CU-wl-cm1"/>
                             <constraint firstItem="aLg-Hm-LLu" firstAttribute="leading" secondItem="cID-1U-K5W" secondAttribute="leading" id="9lA-E6-bTM"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="y2q-KX-5de" secondAttribute="trailing" constant="150" id="AaQ-Cn-rJ9"/>
                             <constraint firstItem="0zf-aw-130" firstAttribute="leading" secondItem="8Wt-Ro-RRP" secondAttribute="leadingMargin" constant="15" id="AfQ-Xl-x5N"/>
                             <constraint firstItem="q3f-Df-KrK" firstAttribute="top" secondItem="MuS-L1-vBP" secondAttribute="bottom" constant="8" id="Chb-Wd-HTD"/>
                             <constraint firstItem="q3f-Df-KrK" firstAttribute="centerY" secondItem="E1a-6g-F9n" secondAttribute="centerY" id="DBl-0N-i3q"/>
@@ -542,14 +543,17 @@
                             <constraint firstItem="V2D-BB-DWx" firstAttribute="top" secondItem="StJ-VK-SzC" secondAttribute="bottom" constant="8" id="Uuv-Vq-ZIj"/>
                             <constraint firstItem="pXq-e8-BHB" firstAttribute="leading" secondItem="8Wt-Ro-RRP" secondAttribute="leading" constant="15" id="Vun-Lc-YCY"/>
                             <constraint firstItem="MCr-PH-p1H" firstAttribute="leading" secondItem="8Wt-Ro-RRP" secondAttribute="leading" constant="15" id="WkD-kj-4sa"/>
+                            <constraint firstAttribute="trailing" secondItem="cID-1U-K5W" secondAttribute="trailing" constant="15" id="a5A-fX-NPs"/>
                             <constraint firstItem="ijE-Qz-otU" firstAttribute="leading" secondItem="8Wt-Ro-RRP" secondAttribute="leading" constant="16" id="dN4-tT-5Nf"/>
                             <constraint firstItem="Xvd-5A-3nI" firstAttribute="leading" secondItem="ijE-Qz-otU" secondAttribute="leading" id="dxu-FD-dFb"/>
                             <constraint firstItem="aLg-Hm-LLu" firstAttribute="centerY" secondItem="V6m-42-TKC" secondAttribute="centerY" id="eJf-CF-74U"/>
+                            <constraint firstAttribute="trailing" secondItem="aLg-Hm-LLu" secondAttribute="trailing" constant="15" id="fbr-as-QEt"/>
                             <constraint firstItem="cID-1U-K5W" firstAttribute="centerY" secondItem="pXq-e8-BHB" secondAttribute="centerY" id="g1v-Wo-Zod"/>
                             <constraint firstItem="MuS-L1-vBP" firstAttribute="leading" secondItem="ijE-Qz-otU" secondAttribute="trailing" constant="14" id="jGu-gE-J0c"/>
                             <constraint firstItem="GD0-dp-Cxu" firstAttribute="width" secondItem="MCr-PH-p1H" secondAttribute="width" id="jdA-lQ-4nm"/>
                             <constraint firstItem="GD0-dp-Cxu" firstAttribute="centerY" secondItem="MCr-PH-p1H" secondAttribute="centerY" id="kzP-R4-j8V"/>
                             <constraint firstItem="GD0-dp-Cxu" firstAttribute="height" secondItem="MCr-PH-p1H" secondAttribute="height" id="pkn-Vd-YDc"/>
+                            <constraint firstItem="GD0-dp-Cxu" firstAttribute="leading" secondItem="MCr-PH-p1H" secondAttribute="trailing" constant="15" id="tkA-af-9nu"/>
                             <constraint firstItem="V6m-42-TKC" firstAttribute="top" secondItem="pXq-e8-BHB" secondAttribute="bottom" constant="15" id="uB5-Ds-XAX"/>
                             <constraint firstItem="y2q-KX-5de" firstAttribute="leading" secondItem="cID-1U-K5W" secondAttribute="leading" id="uab-wx-I5k"/>
                             <constraint firstAttribute="trailing" secondItem="MuS-L1-vBP" secondAttribute="trailing" constant="16" id="wWy-QB-G8u"/>
@@ -644,6 +648,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Wen-3P-JJ5"/>
+        <segue reference="qe2-gD-hKZ"/>
     </inferredMetricsTieBreakers>
 </document>
