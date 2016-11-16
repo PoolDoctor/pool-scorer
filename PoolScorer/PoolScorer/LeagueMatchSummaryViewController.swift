@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateMatchDelegate {
 
     @IBOutlet weak var firstTeamName: UILabel!
     @IBOutlet weak var secondTeamName: UILabel!
@@ -31,7 +31,6 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
         return 5
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row + 1 <= leagueMatch!.matches.count) {
             let cell  = tableView.dequeueReusableCell(withIdentifier: "MatchTableViewCell", for: indexPath) as! MatchTableViewCell
@@ -46,18 +45,31 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
             return cell
         }
     }
+    
+    func CreateMatchDelegate(createMatch: CreateMatchViewController, match: SingleMatch) {
+        if (leagueMatch != nil) {
+            leagueMatch?.matches.append(match)
+        }
+        
+    }
+    
+    
     @IBAction func onAdd(_ sender: Any) {
         
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "pushToCreateMatch") {
+            let dest = segue.destination as! CreateMatchViewController
+            dest.delegate = self
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
 
 }
