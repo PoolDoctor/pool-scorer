@@ -11,12 +11,14 @@ import UIKit
 class LeagueMatchInfoViewController: UIViewController {
     var team1 : Team!
     var team2 : Team!
-    var leagueMatch : LeagueMatch!
+    var leagueMatch : LeagueMatch?
     @IBAction func onConfirm(_ sender: AnyObject) {
         team1 = Team(name: homeTeamName.text!, teamId: Int(homeTeamId.text!)!, homeLocation: locationField.text!)
         team2 = Team(name: visitTeamName.text!, teamId: Int(visitTeamId.text!)!, homeLocation: locationField.text!)
         leagueMatch = LeagueMatch(hostTeam: team1, visitingTeam: team2)
-        performSegue(withIdentifier: "pushToMatchesView", sender: leagueMatch)
+        leagueMatch?.location = locationField.text!
+        leagueMatch?.matches = [SingleMatch?]()
+        performSegue(withIdentifier: "PushToMatchesView", sender: nil)
         
     }
     @IBOutlet weak var homeTeamName: UITextField!
@@ -43,10 +45,10 @@ class LeagueMatchInfoViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Passing league match to next VC
-        if (segue.identifier == "pushToMatchesView") {
+        if (segue.identifier == "PushToMatchesView") {
+            print("Setting the next league match...")
             let destVC = segue.destination as! LeagueMatchSummaryViewController
-            destVC.leagueMatch = leagueMatch
-            
+            destVC.leagueMatch = self.leagueMatch
         }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.

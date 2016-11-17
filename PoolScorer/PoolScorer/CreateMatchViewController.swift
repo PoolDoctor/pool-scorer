@@ -37,6 +37,7 @@ class CreateMatchViewController: UIViewController {
         if (self.delegate != nil) {
             self.delegate?.CreateMatchDelegate!(createMatch: self, match: thisMatch!)
         }
+        self.navigationController?.popViewController(animated: true)
     // Should increase matches number, which should then increase # of cells in the match tableview
     }
     @IBAction func enterScoreAction(_ sender: Any) {
