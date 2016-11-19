@@ -13,6 +13,7 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
     @IBOutlet weak var firstTeamName: UILabel!
     @IBOutlet weak var secondTeamName: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    var player: Player?
     var leagueMatch : LeagueMatch?
     
     @IBOutlet weak var addMatchLabel: UILabel!
@@ -28,6 +29,7 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
             print ("Label is hidden!")
             addMatchLabel.isHidden = false
         }
+        player = Player(firstName: "mar", lastName: "shen", playerId: 12345, skillLevel: 4)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +40,9 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
             addMatchLabel.isHidden = true
         }
         self.tableView.reloadData()
+        if (player != nil) {
+            print ("the player first name is \(player?.firstName)")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,6 +97,7 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
         if (segue.identifier == "pushToCreateMatch") {
             let dest = segue.destination as! CreateMatchViewController
             dest.delegate = self
+            dest.player = self.player
         }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.

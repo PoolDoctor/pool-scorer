@@ -23,6 +23,7 @@ class CreateMatchViewController: UIViewController {
     @IBOutlet weak var secondPlayerNumber: UITextField!
     @IBOutlet weak var secondPlayerSkill: UITextField!
     var thisMatch : SingleMatch?
+    var player : Player?
     var player1 : Player?
     var player2 : Player?
     weak var delegate : CreateMatchDelegate?
@@ -45,7 +46,7 @@ class CreateMatchViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        player?.firstName = "MarvinKKK"
         // Do any additional setup after loading the view.
     }
 

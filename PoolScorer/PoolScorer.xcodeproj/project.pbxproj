@@ -24,6 +24,8 @@
 		9FCCC53BE05DEED74ADE7C6B /* Pods_PoolScorer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57141151C6D17F649DD52EF /* Pods_PoolScorer.framework */; };
 		C00F4A001DDB0CD0008A269B /* CreateMatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00F49FF1DDB0CD0008A269B /* CreateMatchViewController.swift */; };
 		C0771CDE1DD8531E005CDA8E /* MatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0771CDD1DD8531E005CDA8E /* MatchTableViewCell.swift */; };
+		C085A79C1DE01EFE005C3FFD /* ScoringView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C085A79B1DE01EFE005C3FFD /* ScoringView.xib */; };
+		C085A79E1DE01F43005C3FFD /* ScoringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C085A79D1DE01F43005C3FFD /* ScoringView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +49,8 @@
 		A0E8AD067BA240598114296B /* Pods-PoolScorer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PoolScorer.release.xcconfig"; path = "Pods/Target Support Files/Pods-PoolScorer/Pods-PoolScorer.release.xcconfig"; sourceTree = "<group>"; };
 		C00F49FF1DDB0CD0008A269B /* CreateMatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMatchViewController.swift; sourceTree = "<group>"; };
 		C0771CDD1DD8531E005CDA8E /* MatchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchTableViewCell.swift; sourceTree = "<group>"; };
+		C085A79B1DE01EFE005C3FFD /* ScoringView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoringView.xib; sourceTree = "<group>"; };
+		C085A79D1DE01F43005C3FFD /* ScoringView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoringView.swift; sourceTree = "<group>"; };
 		F57141151C6D17F649DD52EF /* Pods_PoolScorer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PoolScorer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -133,6 +137,8 @@
 			isa = PBXGroup;
 			children = (
 				C0771CDD1DD8531E005CDA8E /* MatchTableViewCell.swift */,
+				C085A79B1DE01EFE005C3FFD /* ScoringView.xib */,
+				C085A79D1DE01F43005C3FFD /* ScoringView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -207,6 +213,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C085A79C1DE01EFE005C3FFD /* ScoringView.xib in Resources */,
 				264F6AF61DD1987600A78B76 /* LaunchScreen.storyboard in Resources */,
 				264F6AF31DD1987600A78B76 /* Assets.xcassets in Resources */,
 				264F6AF11DD1987600A78B76 /* Main.storyboard in Resources */,
@@ -280,6 +287,7 @@
 				26B50AAF1DD78FD400ED3F48 /* Player.swift in Sources */,
 				26B50AB71DD7952D00ED3F48 /* Frame.swift in Sources */,
 				264F6AEC1DD1987600A78B76 /* AppDelegate.swift in Sources */,
+				C085A79E1DE01F43005C3FFD /* ScoringView.swift in Sources */,
 				26B50AB51DD7951F00ED3F48 /* SingleMatch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

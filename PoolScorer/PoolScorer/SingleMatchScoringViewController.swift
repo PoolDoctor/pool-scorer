@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SingleMatchScoringViewController: UIViewController {
+class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +21,13 @@ class SingleMatchScoringViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func changeScore(playerPosition: Int, score: Int) {
+        
+    }
+
+    func changeDefense(playerPosition: Int, defense: Int) {
+        
+    }
 
     /*
     // MARK: - Navigation
