@@ -15,8 +15,8 @@ class LeagueMatch: NSObject {
     var visitingTeam: Team
     var location: String
     //TODO : choose a better type for start and end time
-    var startTime: Int
-    var endTime: Int
+    var startTime: String
+    var endTime: String
     var hostTeamScore: Int
     var visitingTeamScore: Int
     var hostPutFirstPlayer: Bool
@@ -27,8 +27,8 @@ class LeagueMatch: NSObject {
         self.hostTeam = hostTeam
         self.visitingTeam = visitingTeam
         self.location = hostTeam.homeLocation
-        self.startTime = 0
-        self.endTime = 0
+        self.startTime = String("7:00 pm")
+        self.endTime = String("10:30 pm")
         self.hostTeamScore = 0
         self.visitingTeamScore = 0
         self.hostPutFirstPlayer = true

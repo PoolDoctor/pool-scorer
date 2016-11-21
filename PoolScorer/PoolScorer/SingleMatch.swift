@@ -40,7 +40,7 @@ class SingleMatch: NSObject {
                 p1Score += frame.p1Score
             }
             if p1Score == getPlayerTargetPoints(player: player1) {
-                print(" Player 1 won the match!")
+                print(" \(player1.name) won the match!")
                 status = MatchStatus.Player1Won
                 updatePointsFromScores()
             }
@@ -55,7 +55,7 @@ class SingleMatch: NSObject {
                 p2Score += frame.p2Score
             }
             if p2Score == getPlayerTargetPoints(player: player2) {
-                print(" Player 2 won the match!")
+                print(" \(player2.name) won the match!")
                 status = MatchStatus.Player2Won
                 updatePointsFromScores()
             }

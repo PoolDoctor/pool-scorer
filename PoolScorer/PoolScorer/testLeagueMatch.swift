@@ -12,31 +12,32 @@ import UIKit
 class TestLeagueMatch {
     //singleton
     static let sharedInstance = TestLeagueMatch()
+    var currentLeagueMatch: LeagueMatch
     
     init() {
         let hosts = Team(name: "Justice League", teamId: 30201, homeLocation: "Edgies Billiards")
         let visitors = Team(name: "Avengers", teamId: 30210, homeLocation: "Lucky Shot Billiards")
         
         //8 players in host team
-        hosts.addPlayer(player: Player(firstName: "Clark", lastName: "Kent", playerId: 48952, skillLevel: 2))
-        hosts.addPlayer(player: Player(firstName: "Bruce", lastName: "Wayne", playerId: 29482, skillLevel: 7))
-        hosts.addPlayer(player: Player(firstName: "Diana", lastName: "Prince", playerId: 19483, skillLevel: 4))
-        hosts.addPlayer(player: Player(firstName: "Oliver", lastName: "Green", playerId: 28403, skillLevel: 3))
-        hosts.addPlayer(player: Player(firstName: "Guy", lastName: "Gardner", playerId: 10382, skillLevel: 6))
-        hosts.addPlayer(player: Player(firstName: "Flash", lastName: "", playerId: 18021, skillLevel: 5))
-        hosts.addPlayer(player: Player(firstName: "Black", lastName: "Canary", playerId: 8402, skillLevel: 1))
-        hosts.addPlayer(player: Player(firstName: "", lastName: "Hawkman", playerId: 46382, skillLevel: 8))
+        hosts.addPlayer(player: Player(firstName: "Clark", lastName: "Kent", playerId: 48952, skillLevel: 2, team: hosts))
+        hosts.addPlayer(player: Player(firstName: "Bruce", lastName: "Wayne", playerId: 29482, skillLevel: 7, team: hosts))
+        hosts.addPlayer(player: Player(firstName: "Diana", lastName: "Prince", playerId: 19483, skillLevel: 4, team: hosts))
+        hosts.addPlayer(player: Player(firstName: "Oliver", lastName: "Green", playerId: 28403, skillLevel: 3, team: hosts))
+        hosts.addPlayer(player: Player(firstName: "Guy", lastName: "Gardner", playerId: 10382, skillLevel: 6, team: hosts))
+        hosts.addPlayer(player: Player(firstName: "Flash", lastName: "", playerId: 18021, skillLevel: 5, team: hosts))
+        hosts.addPlayer(player: Player(firstName: "Black", lastName: "Canary", playerId: 8402, skillLevel: 1, team: hosts))
+        hosts.addPlayer(player: Player(firstName: "", lastName: "Hawkman", playerId: 46382, skillLevel: 8, team: hosts))
         
         //7 players in visiting team
-        visitors.addPlayer(player: Player(firstName: "Tony", lastName: "Stark", playerId: 02912, skillLevel: 2))
-        visitors.addPlayer(player: Player(firstName: "Thor", lastName: "", playerId: 24021, skillLevel: 3))
-        visitors.addPlayer(player: Player(firstName: "Robert Bruce", lastName: "Banner", playerId: 20392, skillLevel: 9))
-        visitors.addPlayer(player: Player(firstName: "Steve", lastName: "Rogers", playerId: 02912, skillLevel: 4))
-        visitors.addPlayer(player: Player(firstName: "Quick", lastName: "Silver", playerId: 94922, skillLevel: 3))
-        visitors.addPlayer(player: Player(firstName: "Black", lastName: "Panther", playerId: 29482, skillLevel: 2))
-        visitors.addPlayer(player: Player(firstName: "Scarlet", lastName: "Witch", playerId: 37205, skillLevel: 4))
+        visitors.addPlayer(player: Player(firstName: "Tony", lastName: "Stark", playerId: 02912, skillLevel: 2, team: visitors))
+        visitors.addPlayer(player: Player(firstName: "Thor", lastName: "", playerId: 24021, skillLevel: 3, team: visitors))
+        visitors.addPlayer(player: Player(firstName: "Robert Bruce", lastName: "Banner", playerId: 20392, skillLevel: 9, team: visitors))
+        visitors.addPlayer(player: Player(firstName: "Steve", lastName: "Rogers", playerId: 02912, skillLevel: 4, team: visitors))
+        visitors.addPlayer(player: Player(firstName: "Quick", lastName: "Silver", playerId: 94922, skillLevel: 3, team: visitors))
+        visitors.addPlayer(player: Player(firstName: "Black", lastName: "Panther", playerId: 29482, skillLevel: 2, team: visitors))
+        visitors.addPlayer(player: Player(firstName: "Scarlet", lastName: "Witch", playerId: 37205, skillLevel: 4, team: visitors))
 
-        let currentLeagueMatch = LeagueMatch(hostTeam: hosts, visitingTeam: visitors)
+        currentLeagueMatch = LeagueMatch(hostTeam: hosts, visitingTeam: visitors)
         
         currentLeagueMatch.addMatch(index: 0, p1: hosts.members[6], p2: visitors.members[0])
         currentLeagueMatch.addMatch(index: 1, p1: hosts.members[3], p2: visitors.members[1])

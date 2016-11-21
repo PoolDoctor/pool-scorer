@@ -15,6 +15,7 @@ class Player: NSObject {
     var firstName: String
     var lastName: String = ""
     var timeOutsAllowed: Int = 1
+    var currentTeam : Team?
     
     //Computer Properties
     var name: String {
@@ -24,11 +25,12 @@ class Player: NSObject {
     }
     
     //Initializers
-    init(firstName: String, lastName: String, playerId: Int, skillLevel: Int) {
+    init(firstName: String, lastName: String, playerId: Int, skillLevel: Int, team: Team? = nil) {
         self.firstName = firstName
         self.lastName = lastName
         self.playerId = playerId
         self.skillLevel = skillLevel
+        self.currentTeam = team
         switch skillLevel {
         case 1...3:
             self.timeOutsAllowed = 2
