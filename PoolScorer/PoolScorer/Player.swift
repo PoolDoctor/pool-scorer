@@ -11,7 +11,7 @@ import UIKit
 class Player: NSObject {
     //Stored properties
     var playerId: Int = 0
-    var skillLevel: Int?
+    var skillLevel: Int
     var firstName: String
     var lastName: String = ""
     var timeOutsAllowed: Int = 1

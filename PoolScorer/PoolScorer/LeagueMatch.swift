@@ -36,7 +36,7 @@ class LeagueMatch: NSObject {
             var score = 0
             for match in matches {
                 if match != nil {
-                    score += (match?.p1Points)!
+                    score += ((match?.hostPlayerBrokeFirst)! ? match?.p1Points : match?.p2Points)!
                 }
             }
             return score
@@ -48,7 +48,7 @@ class LeagueMatch: NSObject {
             var score = 0
             for match in matches {
                 if match != nil {
-                    score += (match?.p1Points)!
+                    score += ((match?.hostPlayerBrokeFirst)! ? match?.p2Points : match?.p1Points)!
                 }
             }
             return score
@@ -61,7 +61,7 @@ class LeagueMatch: NSObject {
     
     func addMatch(index: Int, p1: Player, p2: Player) {
         if matches[index] == nil {
-            matches[index] = NineBallSingleMatch(player1: p1, player2: p2)
+            matches[index] = NineBallSingleMatch(hostPlayer: p1, visitingPlayer: p2)
         } else {
             print("Match \(index) is already populated.")
         }

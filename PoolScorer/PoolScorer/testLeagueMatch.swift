@@ -54,7 +54,7 @@ class TestLeagueMatch {
         //-----------
         
         let firstMatch: SingleMatch = currentLeagueMatch.matches[0]!
-        firstMatch.startMatch(p1BrokeFirst: false)
+        firstMatch.startMatch(hostPlayerBrokeFirst: false)
         
         // 1st frame
         // Tony made 7 balls in a row
@@ -142,7 +142,7 @@ class TestLeagueMatch {
     }
     
     func playRandomMatch(match: SingleMatch) {
-        match.startMatch(p1BrokeFirst: true)
+        match.startMatch(hostPlayerBrokeFirst: true)
         while match.status != SingleMatch.MatchStatus.Player1Won &&
             match.status != SingleMatch.MatchStatus.Player2Won {
                 let random_num = Int(arc4random_uniform(11) + 1) // generates 0 to 10.

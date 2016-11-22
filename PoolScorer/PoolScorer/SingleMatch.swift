@@ -9,12 +9,12 @@
 import UIKit
 
 class SingleMatch: NSObject {
-    var player1: Player
-    var player2: Player
+    var hostPlayer: Player
+    var visitingPlayer: Player
     var status: MatchStatus = MatchStatus.Unstarted
     var matchId: Int = 0
     var frames: [Frame] = [Frame]()
-    var p1BrokeFirst: Bool = true
+    var hostPlayerBrokeFirst: Bool = true
     var p1Points: Int = 0
     var p2Points: Int = 0
     var p1Defenses: Int = 0
@@ -23,6 +23,19 @@ class SingleMatch: NSObject {
     var currentFrame: Frame {
         return frames.last!
     }
+    
+    var player1: Player {
+        get {
+            return hostPlayerBrokeFirst ? hostPlayer : visitingPlayer
+        }
+    }
+    
+    var player2: Player {
+        get {
+            return hostPlayerBrokeFirst ? visitingPlayer : hostPlayer
+        }
+    }
+
     var innings: Int {
         get {
             var innings = 0
@@ -39,8 +52,8 @@ class SingleMatch: NSObject {
             for frame in frames {
                 p1Score += frame.p1Score
             }
-            if p1Score == getPlayerTargetPoints(player: player1) {
-                print(" \(player1.name) won the match!")
+            if p1Score == NineBallSingleMatch.getPlayerTargetPoints(player: player1) {
+                print(" \(player1.name) from \(player1.currentTeam?.name) won the match! \(p1Points) - \(p2Points)")
                 status = MatchStatus.Player1Won
                 updatePointsFromScores()
             }
@@ -54,19 +67,19 @@ class SingleMatch: NSObject {
             for frame in frames {
                 p2Score += frame.p2Score
             }
-            if p2Score == getPlayerTargetPoints(player: player2) {
-                print(" \(player2.name) won the match!")
+            if p2Score == NineBallSingleMatch.getPlayerTargetPoints(player: player2) {
                 status = MatchStatus.Player2Won
                 updatePointsFromScores()
+                print(" \(player2.name) from \(player2.currentTeam?.name) won the match! \(p2Points) - \(p1Points)")
             }
             return p2Score
         }
     }
     
-    init(player1: Player, player2: Player) {
-        self.player1 = player1
-        self.player2 = player2
-        print ("Starting match between \(player1.name) and \(player2.name)")
+    init(hostPlayer: Player, visitingPlayer: Player) {
+        self.hostPlayer = hostPlayer
+        self.visitingPlayer = visitingPlayer
+        print ("Starting match between \(hostPlayer.name) and \(visitingPlayer.name)")
     }
     
     enum MatchStatus {
@@ -74,15 +87,15 @@ class SingleMatch: NSObject {
     }
     
     
-    func startMatch(p1BrokeFirst: Bool) {
-        self.p1BrokeFirst = p1BrokeFirst
+    func startMatch(hostPlayerBrokeFirst: Bool) {
+        self.hostPlayerBrokeFirst = hostPlayerBrokeFirst
         self.status = MatchStatus.Ongoing
-        frames.append(Frame(p1Needs: getPlayerTargetPoints(player: player1), p2Needs: getPlayerTargetPoints(player: player2), p1TimeOutsAllowed: player1.timeOutsAllowed, p2TimeOutsAllowed: player2.timeOutsAllowed))
+        frames.append(Frame(p1Needs: NineBallSingleMatch.getPlayerTargetPoints(player: player1), p2Needs: NineBallSingleMatch.getPlayerTargetPoints(player: player2), p1TimeOutsAllowed: player1.timeOutsAllowed, p2TimeOutsAllowed: player2.timeOutsAllowed))
     }
     
     func startNewFrame() {
         if currentFrame.endFrame() == 0 { // Successfully ended the last frame
-            frames.append(Frame(p1Needs: (getPlayerTargetPoints(player: player1)-p1Score), p2Needs: (getPlayerTargetPoints(player: player2)-p2Score), p1TimeOutsAllowed: player1.timeOutsAllowed, p2TimeOutsAllowed: player2.timeOutsAllowed))
+            frames.append(Frame(p1Needs: (NineBallSingleMatch.getPlayerTargetPoints(player: player1)-p1Score), p2Needs: (NineBallSingleMatch.getPlayerTargetPoints(player: player2)-p2Score), p1TimeOutsAllowed: player1.timeOutsAllowed, p2TimeOutsAllowed: player2.timeOutsAllowed))
         }
     }
     
@@ -102,7 +115,7 @@ class SingleMatch: NSObject {
             
     }
     
-    func getPlayerTargetPoints (player: Player) -> Int {
+    class func getPlayerTargetPoints (player: Player) -> Int {
         print("dummy function, this should not have been called")
         return 0
     }
@@ -123,17 +136,17 @@ class NineBallSingleMatch: SingleMatch {
     
      override func updatePointsFromScores () {
         if (status == MatchStatus.Player1Won) {
-            p2Points = NineBallSingleMatch.getLoserPointsFromScore(loserSkillLevel: player2.skillLevel!, loserScore: p2Score)
+            p2Points = NineBallSingleMatch.getLoserPointsFromScore(loserSkillLevel: player2.skillLevel, loserScore: p2Score)
             p1Points = NineBallSingleMatch.MAX_MATCH_POINTS - p2Points
         } else if (status == MatchStatus.Player2Won) {
-            p1Points = NineBallSingleMatch.getLoserPointsFromScore(loserSkillLevel: player1.skillLevel!, loserScore: p1Score)
+            p1Points = NineBallSingleMatch.getLoserPointsFromScore(loserSkillLevel: player1.skillLevel, loserScore: p1Score)
             p2Points = NineBallSingleMatch.MAX_MATCH_POINTS - p1Points
         }
     }
     
-    override func getPlayerTargetPoints (player: Player) -> Int {
+    class override func getPlayerTargetPoints (player: Player) -> Int {
         var arr = [14, 19, 25, 31, 38, 46, 55, 65, 75]
-        return arr[player.skillLevel!-1]
+        return arr[player.skillLevel-1]
     }
     
     class func getLoserPointsFromScore (loserSkillLevel: Int, loserScore: Int) -> Int {
