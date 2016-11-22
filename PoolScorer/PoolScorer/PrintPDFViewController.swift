@@ -44,7 +44,14 @@ enum UIElementTags {
     p1Points,
     p2Points,
     team1RunningTotal,
-    team2RunningTotal
+    team2RunningTotal,
+    
+    //frame details
+    frameP1Score,
+    frameInnings,
+    frameDeadBalls,
+    frameP2Score,
+    frameSeparator
 }
 
 
@@ -83,7 +90,14 @@ var UIElementPositions: [UIElementTags: (x: Int, y: Int, width: Int, height: Int
     UIElementTags.p1Points:                 (x: 665, y: 8, width: 25, height: 25),
     UIElementTags.p2Points:                 (x: 665, y: 68, width: 25, height: 25),
     UIElementTags.team1RunningTotal:        (x: 692, y: 8, width: 30, height: 30),
-    UIElementTags.team2RunningTotal:        (x: 692, y: 68, width: 30, height: 30)
+    UIElementTags.team2RunningTotal:        (x: 692, y: 68, width: 30, height: 30),
+    
+    // frame 0 positions
+    UIElementTags.frameP1Score:             (x: 192, y: 15, width: 21, height: 20),
+    UIElementTags.frameInnings:             (x: 192, y: 31, width: 21, height: 20),
+    UIElementTags.frameDeadBalls:           (x: 192, y: 49, width: 21, height: 20),
+    UIElementTags.frameP2Score:             (x: 192, y: 66, width: 21, height: 20),
+    UIElementTags.frameSeparator:           (x: 212, y: 18, width: 1, height: 68)
 ]
 
 
@@ -121,7 +135,13 @@ var labelTextSizes: [UIElementTags: CGFloat] = [
     UIElementTags.p1Points:                 16,
     UIElementTags.p2Points:                 16,
     UIElementTags.team1RunningTotal:        18,
-    UIElementTags.team2RunningTotal:        18
+    UIElementTags.team2RunningTotal:        18,
+    
+    // frame label text sizes
+    UIElementTags.frameP1Score:             14,
+    UIElementTags.frameInnings:             11,
+    UIElementTags.frameDeadBalls:           9,
+    UIElementTags.frameP2Score:             14
 ]
 
 
@@ -149,7 +169,32 @@ class SingleMatchView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    func addFrameLabelToView(tag: UIElementTags, text: Int, index: Int) {
+        let tuple1: (x: Int, y: Int, width: Int,height: Int) = UIElementPositions[tag]!
+        let label: UILabel = UILabel(frame: CGRect(x: (tuple1.x + tuple1.width * index), y: tuple1.y, width: tuple1.width, height: tuple1.height))
+        label.font = UIFont(name: "ChalkboardSE-Regular", size: 20)
+        label.font = label.font.withSize(labelTextSizes[tag]!)
+        label.textAlignment = .center
+        label.textColor = UIColor.blue
+        label.text = String(text)
+        self.addSubview(label)
+        if (tag == UIElementTags.frameP2Score) {
+            let tuple2: (x: Int, y: Int, width: Int,height: Int) = UIElementPositions[UIElementTags.frameSeparator]!
+            let separator = UIView(frame: CGRect(x: (tuple2.x + tuple1.width * index), y: tuple2.y, width: tuple2.width, height: tuple2.height))
+            separator.layer.borderColor = UIColor.darkGray.cgColor
+            separator.layer.borderWidth = 1.0;
+            self.addSubview(separator)
+        }
+    }
+    
+    func addFrames() {
+        for (idx,frame) in match.frames.enumerated() {
+            addFrameLabelToView(tag: UIElementTags.frameP1Score, text: frame.p1Score, index: idx)
+            addFrameLabelToView(tag: UIElementTags.frameInnings, text: frame.innings, index: idx)
+            addFrameLabelToView(tag: UIElementTags.frameDeadBalls, text: frame.deadBallCount, index: idx)
+            addFrameLabelToView(tag: UIElementTags.frameP2Score, text: frame.p2Score, index: idx)
+        }
+    }
 
     func addMatchDetails(hostTeamTotalSoFar: Int, visitingTeamTotalSoFar: Int) {
         let p1: Player = match.player1
@@ -170,6 +215,9 @@ class SingleMatchView: UIView {
         addLabelToView(view: self, tag: UIElementTags.p2SL, text: String(p2.skillLevel))
         addLabelToView(view: self, tag: UIElementTags.p2BallCount, text: String(describing: NineBallSingleMatch.getPlayerTargetPoints(player: p2)))
         
+        addFrames()
+        
+        //TODO: Add BnR and 9Snap labels
         addLabelToView(view: self, tag: UIElementTags.innings, text: String(match.innings))
         addLabelToView(view: self, tag: UIElementTags.p1Defenses, text: String(match.p1Defenses))
         addLabelToView(view: self, tag: UIElementTags.p2Defenses, text: String(match.p2Defenses))

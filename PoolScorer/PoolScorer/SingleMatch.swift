@@ -56,6 +56,7 @@ class SingleMatch: NSObject {
                 print(" \(player1.name) from \(player1.currentTeam?.name) won the match! \(p1Points) - \(p2Points)")
                 status = MatchStatus.Player1Won
                 updatePointsFromScores()
+                finishMatch()
             }
             return p1Score
         }
@@ -71,6 +72,7 @@ class SingleMatch: NSObject {
                 status = MatchStatus.Player2Won
                 updatePointsFromScores()
                 print(" \(player2.name) from \(player2.currentTeam?.name) won the match! \(p2Points) - \(p1Points)")
+                finishMatch()
             }
             return p2Score
         }
@@ -94,7 +96,11 @@ class SingleMatch: NSObject {
     }
     
     func startNewFrame() {
-        if currentFrame.endFrame() == 0 { // Successfully ended the last frame
+        if (self.p1Score == NineBallSingleMatch.getPlayerTargetPoints(player: player1)) ||
+            (self.p2Score == NineBallSingleMatch.getPlayerTargetPoints(player: player2)) {
+            return
+        }
+        if currentFrame.endFrame() == 0 && self.status == MatchStatus.Ongoing { // Successfully ended the last frame
             frames.append(Frame(p1Needs: (NineBallSingleMatch.getPlayerTargetPoints(player: player1)-p1Score), p2Needs: (NineBallSingleMatch.getPlayerTargetPoints(player: player2)-p2Score), p1TimeOutsAllowed: player1.timeOutsAllowed, p2TimeOutsAllowed: player2.timeOutsAllowed))
         }
     }
