@@ -37,11 +37,11 @@ class Frame: NSObject {
         if totalSoFar != Frame.MAX_POINTS_PER_FRAME {
             if force {
                 deadBallCount += Frame.MAX_POINTS_PER_FRAME - totalSoFar
-                print("Frame Ended. Player 1 scored:\(p1Score) ,Player 2 Scored:\(p2Score) ,Innings:\(innings), DeadBalls:\(deadBallCount)")
+                //print("Frame Ended. Player 1 scored:\(p1Score) ,Player 2 Scored:\(p2Score) ,Innings:\(innings), DeadBalls:\(deadBallCount)")
                 frameEnded = true
                 return 0
             } else {
-                print("Only \(totalSoFar) points out of \(Frame.MAX_POINTS_PER_FRAME) in this frame were accounted for. Do you want to mark the remaining \(Frame.MAX_POINTS_PER_FRAME - totalSoFar) balls dead?")
+                //print("Only \(totalSoFar) points out of \(Frame.MAX_POINTS_PER_FRAME) in this frame were accounted for. Do you want to mark the remaining \(Frame.MAX_POINTS_PER_FRAME - totalSoFar) balls dead?")
                 // Show user popup and ask yes/no
             
                 // User pressed no
@@ -49,7 +49,7 @@ class Frame: NSObject {
             }
         } else {
             // Show popup to confirm frame details
-            print("Frame Ended. Player 1 scored:\(p1Score) ,Player 2 Scored:\(p2Score) ,Innings:\(innings), DeadBalls:\(deadBallCount)")
+            //print("Frame Ended. Player 1 scored:\(p1Score) ,Player 2 Scored:\(p2Score) ,Innings:\(innings), DeadBalls:\(deadBallCount)")
             frameEnded = true
             return 0
         }
@@ -64,7 +64,7 @@ class Frame: NSObject {
                 endFrame()
             }
             if p1Score == p1PointsLeftToWin {
-                print("Player 1 won")
+                //print("Player 1 won")
                 endFrame(force: true)
             }
         }
@@ -95,7 +95,7 @@ class Frame: NSObject {
                 endFrame()
             }
             if p2Score == p2PointsLeftToWin {
-                print("Player 2 won")
+                //print("Player 2 won")
                 endFrame(force: true)
             }
         }
@@ -112,7 +112,7 @@ class Frame: NSObject {
     
     func p1TakingTimeOut () {
         if p1TimeOutsLeft == 0 {
-            print("No timeouts left for player1")
+            //print("No timeouts left for player1")
         } else {
             p1TimeOutsLeft -= 1
         }
@@ -120,7 +120,7 @@ class Frame: NSObject {
     
     func p2TakingTimeOut () {
         if p1TimeOutsLeft == 0 {
-            print("No timeouts left for player2")
+            //print("No timeouts left for player2")
         } else {
             p2TimeOutsLeft -= 1
         }

@@ -34,7 +34,7 @@ class CreateMatchViewController: UIViewController {
         print ("The names captured are \(firstArr![0]) \(firstArr![1]) \(secondArr![0]) \(secondArr![1])")
         player1 = Player(firstName: firstArr![0], lastName: firstArr![1], playerId: Int(firstPlayerNumber.text!)!, skillLevel: Int(firstPlayerSkill.text!)!)
         player2 = Player(firstName: secondArr![0], lastName: secondArr![1], playerId: Int(secondPlayerNumber.text!)!, skillLevel: Int(secondPlayerSkill.text!)!)
-        thisMatch = SingleMatch(player1: player1!, player2: player2!)
+        thisMatch = SingleMatch(hostPlayer: player1!, visitingPlayer: player2!)
         if (self.delegate != nil) {
             self.delegate?.CreateMatchDelegate!(createMatch: self, match: thisMatch!)
         }
