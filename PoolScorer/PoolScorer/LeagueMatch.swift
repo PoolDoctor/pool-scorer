@@ -17,8 +17,6 @@ class LeagueMatch: NSObject {
     //TODO : choose a better type for start and end time
     var startTime: String
     var endTime: String
-    var hostTeamScore: Int
-    var visitingTeamScore: Int
     var hostPutFirstPlayer: Bool
     var matches: [SingleMatch?]
     static var SINGLE_MATCHES_IN_LEAGUE_MATCH = 5
@@ -29,10 +27,32 @@ class LeagueMatch: NSObject {
         self.location = hostTeam.homeLocation
         self.startTime = String("7:00 pm")
         self.endTime = String("10:30 pm")
-        self.hostTeamScore = 0
-        self.visitingTeamScore = 0
         self.hostPutFirstPlayer = true
         self.matches = [SingleMatch?](repeating: nil, count: LeagueMatch.SINGLE_MATCHES_IN_LEAGUE_MATCH)
+    }
+    
+    var hostTeamScore: Int {
+        get {
+            var score = 0
+            for match in matches {
+                if match != nil {
+                    score += (match?.p1Points)!
+                }
+            }
+            return score
+        }
+    }
+    
+    var visitingTeamScore: Int {
+        get {
+            var score = 0
+            for match in matches {
+                if match != nil {
+                    score += (match?.p1Points)!
+                }
+            }
+            return score
+        }
     }
     
     func getResult() {
