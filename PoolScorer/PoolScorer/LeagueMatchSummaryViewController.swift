@@ -15,6 +15,7 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
     @IBOutlet weak var tableView: UITableView!
     var player: Player?
     var leagueMatch : LeagueMatch?
+    var thisMatch: SingleMatch?
     
     @IBOutlet weak var addMatchLabel: UILabel!
     override func viewDidLoad() {
@@ -82,9 +83,17 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
         
     }
     
-    func buttonAction () {
+    func buttonAction (sender : UIButton) {
+        let view = sender.superview!
+        let cell = view.superview as! MatchTableViewCell
+        let indexPath = tableView.indexPath(for: cell)
+        thisMatch = leagueMatch?.matches[(indexPath?.row)!]
+        print ("The index path row is  \(indexPath!.row)")
+        
+//        thisMatch = LeagueMatch
         performSegue(withIdentifier: "MatchResume", sender: nil)
     }
+    
     @IBAction func onAdd(_ sender: Any) {
         
     }
@@ -98,6 +107,9 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
             let dest = segue.destination as! CreateMatchViewController
             dest.delegate = self
             dest.player = self.player
+        } else if (segue.identifier == "MatchResume") {
+            let destVC = segue.destination as! SingleMatchScoringViewController
+                destVC.match = thisMatch
         }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.

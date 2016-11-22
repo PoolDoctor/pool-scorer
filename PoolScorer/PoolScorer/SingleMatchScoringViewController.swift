@@ -9,10 +9,14 @@
 import UIKit
 
 class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
-
+    
+    @IBOutlet weak var p1scoreView: ScoringView!
+    @IBOutlet weak var p2ScoreView: ScoringView!
+    var match : SingleMatch?
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-
+        /* hook up plus minus button scoring*/
         // Do any additional setup after loading the view.
     }
 
@@ -24,7 +28,6 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
     func changeScore(playerPosition: Int, score: Int) {
         
     }
-
     func changeDefense(playerPosition: Int, defense: Int) {
         
     }
