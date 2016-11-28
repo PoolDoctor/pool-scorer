@@ -27,6 +27,9 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
         p1scoreView.scoreIncButton.addTarget(self, action: #selector(changeScore(playerPosition:score:)), for: UIControlEvents.touchUpInside)
         */
         
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
         /* hook up plus minus button scoring*/
         // Do any additional setup after loading the view.
     }
@@ -54,6 +57,9 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
         
     }
     
+    func changeScore(playerPosition: Int, score: Int) {
+        
+    }
     func changeDefense(playerPosition: Int, defense: Int) {
         
     }
