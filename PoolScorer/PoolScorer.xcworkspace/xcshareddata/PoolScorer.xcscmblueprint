@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9A4FB109ED02BBFFA6507E2C5A9CD390EEBEFDE5",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "9A4FB109ED02BBFFA6507E2C5A9CD390EEBEFDE5" : 9223372036854775807,
+    "FA05AFC5D771EC8FEB9C00D7ED661474816AF881" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5D956462-F21E-4491-A45F-48813CEB0167",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "9A4FB109ED02BBFFA6507E2C5A9CD390EEBEFDE5" : "pool-scorer\/",
+    "FA05AFC5D771EC8FEB9C00D7ED661474816AF881" : "..\/.."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "PoolScorer",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "PoolScorer\/PoolScorer.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/PoolDoctor\/pool-scorer.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9A4FB109ED02BBFFA6507E2C5A9CD390EEBEFDE5"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/limenuke\/PChalCpp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FA05AFC5D771EC8FEB9C00D7ED661474816AF881"
+    }
+  ]
+}
