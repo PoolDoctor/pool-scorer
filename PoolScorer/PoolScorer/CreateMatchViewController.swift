@@ -31,7 +31,6 @@ class CreateMatchViewController: UIViewController {
     @IBAction func startMatchAction(_ sender: Any) {
         var firstArr = firstPlayerName.text?.components(separatedBy: " ")
         var secondArr = secondPlayerName.text?.components(separatedBy: " ")
-<<<<<<< HEAD
         if ((firstArr?.count)! > 1 && (secondArr?.count)! > 1) {
             print ("The names captured are \(firstArr![0]) \(firstArr![1]) \(secondArr![0]) \(secondArr![1])")
             player1 = Player(firstName: firstArr![0], lastName: firstArr![1], playerId: Int(firstPlayerNumber.text!)!, skillLevel: Int(firstPlayerSkill.text!)!)
@@ -46,16 +45,6 @@ class CreateMatchViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
-=======
-        print ("The names captured are \(firstArr![0]) \(firstArr![1]) \(secondArr![0]) \(secondArr![1])")
-        player1 = Player(firstName: firstArr![0], lastName: firstArr![1], playerId: Int(firstPlayerNumber.text!)!, skillLevel: Int(firstPlayerSkill.text!)!)
-        player2 = Player(firstName: secondArr![0], lastName: secondArr![1], playerId: Int(secondPlayerNumber.text!)!, skillLevel: Int(secondPlayerSkill.text!)!)
-        thisMatch = SingleMatch(hostPlayer: player1!, visitingPlayer: player2!)
-        if (self.delegate != nil) {
-            self.delegate?.CreateMatchDelegate!(createMatch: self, match: thisMatch!)
-        }
-        self.navigationController?.popViewController(animated: true)
->>>>>>> c7bde147c3e585a31be448f788a6f3219e12636a
     // Should increase matches number, which should then increase # of cells in the match tableview
     }
     @IBAction func enterScoreAction(_ sender: Any) {

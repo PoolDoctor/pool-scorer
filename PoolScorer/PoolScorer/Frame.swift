@@ -49,12 +49,6 @@ class Frame: NSObject {
     }
     
     
-    var totalSoFar: Int {
-        get {
-            return p1Score + p2Score + deadBallCount
-        }
-    }
-    
     func endFrame(force: Bool = false) -> Int {
         if totalSoFar != Frame.MAX_POINTS_PER_FRAME {
             if force {
@@ -122,15 +116,6 @@ class Frame: NSObject {
             }
         }
     }
-    
-    func decP1Score () {
-        p1Score -= 1
-    }
-    
-    func decP2Score () {
-        p2Score -= 1
-    }
-
     
     func decP1Score () {
         p1Score -= 1
