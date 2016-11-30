@@ -21,6 +21,7 @@ class ScoringView: UIView {
     @IBOutlet weak var teamName: UILabel!
     @IBOutlet weak var playerSkill: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var defenseLabel: UILabel!
     @IBOutlet weak var scoreIncButton: UIButton!
     @IBOutlet weak var scoreDecButton: UIButton!
     @IBOutlet weak var defenseDecButton: UIButton!

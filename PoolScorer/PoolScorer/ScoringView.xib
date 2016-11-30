@@ -14,6 +14,7 @@
                 <outlet property="contentView" destination="iN0-l3-epB" id="73l-yK-G6y"/>
                 <outlet property="defenseDecButton" destination="kSI-rw-MpN" id="mzl-nL-wAa"/>
                 <outlet property="defenseIncButton" destination="XjT-Cw-qxO" id="ynV-VO-wD1"/>
+                <outlet property="defenseLabel" destination="Ldl-16-4Po" id="wSp-XI-zqd"/>
                 <outlet property="playerName" destination="nxI-CF-5cU" id="rxg-Zt-bIy"/>
                 <outlet property="playerSkill" destination="cgM-tJ-pNp" id="N8E-YN-uCg"/>
                 <outlet property="scoreDecButton" destination="lTs-l5-ZML" id="Cgg-xo-0ga"/>
