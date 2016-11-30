@@ -6,5 +6,5 @@ target 'PoolScorer' do
   use_frameworks!
 
   # Pods for PoolScorer
-
+  pod 'RealmSwift'
 end

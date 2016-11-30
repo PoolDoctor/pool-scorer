@@ -7,17 +7,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 class LeagueMatchInfoViewController: UIViewController {
-    var team1 : Team!
-    var team2 : Team!
-    var leagueMatch : LeagueMatch?
+    var team1: Team!
+    var team2: Team!
+    var leagueMatch: LeagueMatch?
+    
     @IBAction func onConfirm(_ sender: AnyObject) {
         team1 = Team(name: homeTeamName.text!, teamId: Int(homeTeamId.text!)!, homeLocation: locationField.text!)
         team2 = Team(name: visitTeamName.text!, teamId: Int(visitTeamId.text!)!, homeLocation: locationField.text!)
         leagueMatch = LeagueMatch(hostTeam: team1, visitingTeam: team2)
         leagueMatch?.location = locationField.text!
-        leagueMatch?.matches = [SingleMatch?]()
         performSegue(withIdentifier: "PushToMatchesView", sender: nil)
         
     }

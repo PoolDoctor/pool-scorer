@@ -243,9 +243,9 @@ class SingleMatchView: UIView {
 
 class ToPrintView: UIView {
     var singleMatchViews = [SingleMatchView?](repeating: nil, count: 5)
-    var scoreSheetImageView: UIImageView
-    var scoreSheetUrl : URL
-    var leagueMatch: LeagueMatch
+    var scoreSheetImageView: UIImageView!
+    var scoreSheetUrl : URL!
+    var leagueMatch: LeagueMatch!
     
     init(scoreSheetUrl: URL, leagueMatch: LeagueMatch) {
         let tuple1 = UIElementPositions[UIElementTags.scoreSheetImage]
@@ -271,10 +271,10 @@ class ToPrintView: UIView {
             } else {
                 print ("printing match \(idx)")
                 let bounds: CGRect = CGRect(x: 53, y: (106*idx + 27), width: 722, height: 105)
-                singleMatchViews[idx] = SingleMatchView(match: match!, frame: bounds, hostTeamTotalSoFar: hostTeamTotalSoFar, visitingTeamTotalSoFar: visitingTeamTotalSoFar)
+                singleMatchViews[idx] = SingleMatchView(match: match, frame: bounds, hostTeamTotalSoFar: hostTeamTotalSoFar, visitingTeamTotalSoFar: visitingTeamTotalSoFar)
                 self.addSubview(singleMatchViews[idx]!)
-                hostTeamTotalSoFar += ((match?.hostPlayerBrokeFirst)! ? match?.p1Points : match?.p2Points)!
-                visitingTeamTotalSoFar += ((match?.hostPlayerBrokeFirst)! ? match?.p2Points : match?.p1Points)!
+                hostTeamTotalSoFar += ((match.hostPlayerBrokeFirst) ? match.p1Points : match.p2Points)
+                visitingTeamTotalSoFar += ((match.hostPlayerBrokeFirst) ? match.p2Points : match.p1Points)
 
             }
         }
@@ -287,21 +287,21 @@ class ToPrintView: UIView {
 
         
         // Add Label - which team put the player first
-        addLabelToView(view: self, tag: UIElementTags.teamPutFirstPlayer, text: String(leagueMatch.hostPutFirstPlayer ? (leagueMatch.hostTeam.teamId % 100) : (leagueMatch.visitingTeam.teamId % 100)))
+        addLabelToView(view: self, tag: UIElementTags.teamPutFirstPlayer, text: String(leagueMatch.hostPutFirstPlayer ? ((leagueMatch.hostTeam?.teamId)! % 100) : ((leagueMatch.visitingTeam?.teamId)! % 100)))
         
         // Add Label - Start Time and End Time
-        addLabelToView(view: self, tag: UIElementTags.startTime, text: leagueMatch.startTime)
-        addLabelToView(view: self, tag: UIElementTags.endTime, text: leagueMatch.endTime)
+        addLabelToView(view: self, tag: UIElementTags.startTime, text: String(describing: leagueMatch.startTime))
+        addLabelToView(view: self, tag: UIElementTags.endTime, text: String(describing: leagueMatch.endTime))
         
         // Add Host Team details
-        addLabelToView(view: self, tag: UIElementTags.homeTeamName, text: leagueMatch.hostTeam.name)
-        addLabelToView(view: self, tag: UIElementTags.homeTeamId, text: String(leagueMatch.hostTeam.teamId%100))
+        addLabelToView(view: self, tag: UIElementTags.homeTeamName, text: (leagueMatch.hostTeam?.name)!)
+        addLabelToView(view: self, tag: UIElementTags.homeTeamId, text: String((leagueMatch.hostTeam?.teamId)!%100))
         addLabelToView(view: self, tag: UIElementTags.homeTeamTotalScore, text: String(leagueMatch.hostTeamScore))
 
         
         // Add Visiting Team details
-        addLabelToView(view: self, tag: UIElementTags.visitingTeamName, text: leagueMatch.visitingTeam.name)
-        addLabelToView(view: self, tag: UIElementTags.visitingTeamId, text: String(leagueMatch.visitingTeam.teamId%100))
+        addLabelToView(view: self, tag: UIElementTags.visitingTeamName, text: (leagueMatch.visitingTeam?.name)!)
+        addLabelToView(view: self, tag: UIElementTags.visitingTeamId, text: String((leagueMatch.visitingTeam?.teamId)!%100))
         addLabelToView(view: self, tag: UIElementTags.visitingTeamTotalScore, text: String(leagueMatch.visitingTeamScore))
 
         

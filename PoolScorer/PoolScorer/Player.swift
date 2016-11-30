@@ -7,25 +7,33 @@
 //
 
 import UIKit
+import RealmSwift
 
-class Player: NSObject {
+class Player: Object {
     //Stored properties
-    var playerId: Int = 0
-    var skillLevel: Int
-    var firstName: String
-    var lastName: String = ""
-    var timeOutsAllowed: Int = 1
-    var currentTeam : Team?
+    dynamic var playerId: Int = 0
+    dynamic var skillLevel: Int = 0
+    dynamic var firstName: String = ""
+    dynamic var lastName: String = ""
+    dynamic var timeOutsAllowed: Int = 1
+    dynamic var currentTeam: Team?
     
-    //Computer Properties
+    //Computed Properties
     var name: String {
         get {
             return "\(firstName) \(lastName)"
         }
     }
     
+    // set primary key
+    override class func primaryKey() -> String? {
+        return "playerId"
+    }
+
+    
     //Initializers
-    init(firstName: String, lastName: String, playerId: Int, skillLevel: Int, team: Team? = nil) {
+    convenience init(firstName: String, lastName: String, playerId: Int, skillLevel: Int, team: Team? = nil) {
+        self.init()
         self.firstName = firstName
         self.lastName = lastName
         self.playerId = playerId

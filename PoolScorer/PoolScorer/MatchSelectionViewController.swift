@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class MatchSelectionViewController: UIViewController {
 
@@ -26,7 +27,10 @@ class MatchSelectionViewController: UIViewController {
         // Do any additional setup after loading the view.
 
         //arai : creating a test singleton
-        //let globalTestLeagueMatch = TestLeagueMatch() // this will be lazy-loaded when first called
+        let globalTestLeagueMatch = TestLeagueMatch() // this will be lazy-loaded when first called
+    
+        
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
 
     override func didReceiveMemoryWarning() {

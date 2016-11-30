@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import RealmSwift
+
+// poolRealm (database) will be initialized when the app is loaded and used to
+// save objects to realm
+let poolRealm = try! Realm()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

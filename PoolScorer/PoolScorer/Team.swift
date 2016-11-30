@@ -7,32 +7,45 @@
 //
 
 import UIKit
+import RealmSwift
 
-class Team: NSObject {
+class Team: Object {
     
-    static var MAX_TEAM_SIZE: Int = 8
-    var name: String
-    var teamId: Int
-    var homeLocation: String
-    var members: [Player]
+    static let MAX_TEAM_SIZE: Int = 8
+    dynamic var name: String = ""
+    dynamic var teamId: Int = 0
+    dynamic var homeLocation: String = ""
+    let members = List<Player>()
     
-    func addPlayer(player: Player) {
-        members.append(player)
+    override class func primaryKey() -> String? {
+        return "teamId"
     }
     
-    func removePlayer(player: Player) {
-        for (index, member) in members.enumerated() {
-            print("Player \(index + 1): \(member)")
-            if member.playerId == player.playerId {
-                members.remove(at: index)
+    func addPlayer(_ player: Player) {
+        if let realm = try? Realm() {
+            try! realm.write {
+                self.members.append(player)
             }
         }
     }
     
-    init(name: String, teamId: Int, homeLocation: String) {
+    // remove player from members list and not from DB
+    func removePlayer(_ player: Player) {
+        
+        for (index, member) in members.enumerated() {
+            if member.playerId == player.playerId {
+                let realm = try! Realm()
+                try! realm.write {
+                    members.remove(objectAtIndex: index)
+                }
+            }
+        }
+    }
+    
+    convenience init(name: String, teamId: Int, homeLocation: String) {
+        self.init()
         self.name = name
         self.teamId = teamId
         self.homeLocation = homeLocation
-        self.members = [Player]()
     }
 }

@@ -7,18 +7,19 @@
 //
 
 import UIKit
+import RealmSwift
 
-class SingleMatch: NSObject {
-    var hostPlayer: Player
-    var visitingPlayer: Player
+class SingleMatch: Object {
+    dynamic var hostPlayer: Player?
+    dynamic var visitingPlayer: Player?
     var status: MatchStatus = MatchStatus.Unstarted
-    var matchId: Int = 0
-    var frames: [Frame] = [Frame]()
-    var hostPlayerBrokeFirst: Bool = true
-    var p1Points: Int = 0
-    var p2Points: Int = 0
-    var p1Defenses: Int = 0
-    var p2Defenses: Int = 0
+    dynamic var matchId: Int = 0
+    let frames = List<Frame>()
+    dynamic var hostPlayerBrokeFirst: Bool = true
+    dynamic var p1Points: Int = 0
+    dynamic var p2Points: Int = 0
+    dynamic var p1Defenses: Int = 0
+    dynamic var p2Defenses: Int = 0
     
     var currentFrame: Frame {
         return frames.last!
@@ -26,13 +27,13 @@ class SingleMatch: NSObject {
     
     var player1: Player {
         get {
-            return hostPlayerBrokeFirst ? hostPlayer : visitingPlayer
+            return (hostPlayerBrokeFirst ? hostPlayer : visitingPlayer)!
         }
     }
     
     var player2: Player {
         get {
-            return hostPlayerBrokeFirst ? visitingPlayer : hostPlayer
+            return (hostPlayerBrokeFirst ? visitingPlayer : hostPlayer)!
         }
     }
 
@@ -78,7 +79,8 @@ class SingleMatch: NSObject {
         }
     }
     
-    init(hostPlayer: Player, visitingPlayer: Player) {
+    convenience init(hostPlayer: Player, visitingPlayer: Player) {
+        self.init()
         self.hostPlayer = hostPlayer
         self.visitingPlayer = visitingPlayer
         print ("Starting match between \(hostPlayer.name) and \(visitingPlayer.name)")
@@ -92,7 +94,10 @@ class SingleMatch: NSObject {
     func startMatch(hostPlayerBrokeFirst: Bool) {
         self.hostPlayerBrokeFirst = hostPlayerBrokeFirst
         self.status = MatchStatus.Ongoing
-        frames.append(Frame(p1Needs: NineBallSingleMatch.getPlayerTargetPoints(player: player1), p2Needs: NineBallSingleMatch.getPlayerTargetPoints(player: player2), p1TimeOutsAllowed: player1.timeOutsAllowed, p2TimeOutsAllowed: player2.timeOutsAllowed))
+        try! poolRealm.write {
+
+            frames.append(Frame(p1Needs: NineBallSingleMatch.getPlayerTargetPoints(player: player1), p2Needs: NineBallSingleMatch.getPlayerTargetPoints(player: player2), p1TimeOutsAllowed: player1.timeOutsAllowed, p2TimeOutsAllowed: player2.timeOutsAllowed))
+        }
     }
     
     func startNewFrame() {
@@ -101,7 +106,10 @@ class SingleMatch: NSObject {
             return
         }
         if currentFrame.endFrame() == 0 && self.status == MatchStatus.Ongoing { // Successfully ended the last frame
-            frames.append(Frame(p1Needs: (NineBallSingleMatch.getPlayerTargetPoints(player: player1)-p1Score), p2Needs: (NineBallSingleMatch.getPlayerTargetPoints(player: player2)-p2Score), p1TimeOutsAllowed: player1.timeOutsAllowed, p2TimeOutsAllowed: player2.timeOutsAllowed))
+            try! poolRealm.write {
+
+                frames.append(Frame(p1Needs: (NineBallSingleMatch.getPlayerTargetPoints(player: player1)-p1Score), p2Needs: (NineBallSingleMatch.getPlayerTargetPoints(player: player2)-p2Score), p1TimeOutsAllowed: player1.timeOutsAllowed, p2TimeOutsAllowed: player2.timeOutsAllowed))
+            }
         }
     }
     
@@ -134,19 +142,23 @@ class SingleMatch: NSObject {
 
 
 class NineBallSingleMatch: SingleMatch {
-    var breakNRunP1: Bool = false
-    var breakNRunP2: Bool = false
-    var nineOnBreakP1: Bool = false
-    var nineOnBreakP2: Bool = false
-    static var MAX_MATCH_POINTS = 20
+    dynamic var breakNRunP1: Bool = false
+    dynamic var breakNRunP2: Bool = false
+    dynamic var nineOnBreakP1: Bool = false
+    dynamic var nineOnBreakP2: Bool = false
+    static let MAX_MATCH_POINTS = 20
     
      override func updatePointsFromScores () {
         if (status == MatchStatus.Player1Won) {
-            p2Points = NineBallSingleMatch.getLoserPointsFromScore(loserSkillLevel: player2.skillLevel, loserScore: p2Score)
-            p1Points = NineBallSingleMatch.MAX_MATCH_POINTS - p2Points
+            try! poolRealm.write {
+                p2Points = NineBallSingleMatch.getLoserPointsFromScore(loserSkillLevel: player2.skillLevel, loserScore: p2Score)
+                p1Points = NineBallSingleMatch.MAX_MATCH_POINTS - p2Points
+            }
         } else if (status == MatchStatus.Player2Won) {
-            p1Points = NineBallSingleMatch.getLoserPointsFromScore(loserSkillLevel: player1.skillLevel, loserScore: p1Score)
-            p2Points = NineBallSingleMatch.MAX_MATCH_POINTS - p1Points
+            try! poolRealm.write {
+                p1Points = NineBallSingleMatch.getLoserPointsFromScore(loserSkillLevel: player1.skillLevel, loserScore: p1Score)
+                p2Points = NineBallSingleMatch.MAX_MATCH_POINTS - p1Points
+            }
         }
     }
     
@@ -155,7 +167,7 @@ class NineBallSingleMatch: SingleMatch {
         return arr[player.skillLevel-1]
     }
     
-    class func getLoserPointsFromScore (loserSkillLevel: Int, loserScore: Int) -> Int {
+    class func getLoserPointsFromScore(loserSkillLevel: Int, loserScore: Int) -> Int {
         switch loserSkillLevel {
         case 1:
             switch loserScore {
