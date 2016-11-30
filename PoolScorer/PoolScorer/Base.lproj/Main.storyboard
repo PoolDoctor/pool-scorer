@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mCj-wZ-UTe">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mCj-wZ-UTe">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -301,7 +301,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="87"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bks-E7-yy3" id="Wso-ey-G7Z">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="86.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In Session" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGb-HL-wjQ">
@@ -617,19 +617,35 @@
                                     <constraint firstAttribute="height" constant="198" id="Fku-LP-OGJ"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="FRAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dnm-oi-Goc">
+                                <rect key="frame" x="10" y="270" width="42" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="#" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="755-4J-DlS">
+                                <rect key="frame" x="10" y="287" width="42" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.099628633229999999" green="0.201406957" blue="0.125286752" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="MeX-bH-5Ev" secondAttribute="trailing" id="96P-Mh-Hvg"/>
+                            <constraint firstItem="Dnm-oi-Goc" firstAttribute="leading" secondItem="jhc-rU-dhb" secondAttribute="leading" constant="10" id="E9n-Yy-b2x"/>
                             <constraint firstItem="4rf-Bn-pZI" firstAttribute="top" secondItem="L5r-TT-lUp" secondAttribute="bottom" id="FVP-tZ-v7r"/>
                             <constraint firstAttribute="trailing" secondItem="L5r-TT-lUp" secondAttribute="trailing" id="NYx-l5-ZVG"/>
                             <constraint firstItem="MeX-bH-5Ev" firstAttribute="leading" secondItem="jhc-rU-dhb" secondAttribute="leading" id="VPz-Gh-NGr"/>
+                            <constraint firstItem="Dnm-oi-Goc" firstAttribute="top" secondItem="MeX-bH-5Ev" secondAttribute="bottom" constant="8" id="WdJ-Jm-zTR"/>
                             <constraint firstItem="L5r-TT-lUp" firstAttribute="top" relation="greaterThanOrEqual" secondItem="MeX-bH-5Ev" secondAttribute="bottom" constant="123" id="YwQ-WF-Pnd"/>
                             <constraint firstItem="L5r-TT-lUp" firstAttribute="leading" secondItem="jhc-rU-dhb" secondAttribute="leading" id="qtI-ql-VYG"/>
                             <constraint firstItem="MeX-bH-5Ev" firstAttribute="top" secondItem="OCf-pZ-Z7p" secondAttribute="bottom" id="r9v-jD-FNV"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="frameLabel" destination="755-4J-DlS" id="0zq-Vl-9P4"/>
                         <outlet property="p1scoreView" destination="MeX-bH-5Ev" id="ogg-Rt-HKS"/>
                         <outlet property="p2ScoreView" destination="L5r-TT-lUp" id="rer-ZP-TXU"/>
                     </connections>
