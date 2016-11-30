@@ -45,6 +45,9 @@ enum UIElementTags {
     p2Points,
     team1RunningTotal,
     team2RunningTotal,
+    p1TargetPointsForSL,
+    p2TargetPointsForSL,
+
     
     //frame details
     frameP1Score,
@@ -57,9 +60,9 @@ enum UIElementTags {
 
 var UIElementPositions: [UIElementTags: (x: Int, y: Int, width: Int, height: Int)] = [
     UIElementTags.scoreSheetImage:          (x: 0, y: 0, width: 792, height: 612),
-    UIElementTags.teamPutFirstPlayer:       (x: 120, y: 3, width: 25, height: 20),
-    UIElementTags.startTime:                (x: 575, y: 3, width: 80, height: 20),
-    UIElementTags.endTime:                  (x: 690, y: 3, width: 80, height: 20),
+    UIElementTags.teamPutFirstPlayer:       (x: 120, y: 5, width: 25, height: 20),
+    UIElementTags.startTime:                (x: 575, y: 5, width: 80, height: 20),
+    UIElementTags.endTime:                  (x: 690, y: 5, width: 80, height: 20),
     UIElementTags.homeTeamName:             (x: 165, y: 564, width: 110, height: 20),
     UIElementTags.homeTeamId:               (x: 285, y: 564, width: 30, height: 20),
     UIElementTags.homeTeamTotalScore:       (x: 335, y: 564, width: 40, height: 20),
@@ -91,6 +94,8 @@ var UIElementPositions: [UIElementTags: (x: Int, y: Int, width: Int, height: Int
     UIElementTags.p2Points:                 (x: 665, y: 68, width: 25, height: 25),
     UIElementTags.team1RunningTotal:        (x: 692, y: 8, width: 30, height: 30),
     UIElementTags.team2RunningTotal:        (x: 692, y: 68, width: 30, height: 30),
+    UIElementTags.p1TargetPointsForSL:        (x: 75, y: -8, width: 30, height: 28),
+    UIElementTags.p2TargetPointsForSL:        (x: 75, y: 78, width: 30, height: 27),
     
     // frame 0 positions
     UIElementTags.frameP1Score:             (x: 192, y: 15, width: 21, height: 20),
@@ -102,9 +107,9 @@ var UIElementPositions: [UIElementTags: (x: Int, y: Int, width: Int, height: Int
 
 
 var labelTextSizes: [UIElementTags: CGFloat] = [
-    UIElementTags.teamPutFirstPlayer:       15,
-    UIElementTags.startTime:                15,
-    UIElementTags.endTime:                  15,
+    UIElementTags.teamPutFirstPlayer:       13,
+    UIElementTags.startTime:                13,
+    UIElementTags.endTime:                  13,
     UIElementTags.homeTeamName:             10,
     UIElementTags.homeTeamId:               14,
     UIElementTags.homeTeamTotalScore:       14,
@@ -136,6 +141,10 @@ var labelTextSizes: [UIElementTags: CGFloat] = [
     UIElementTags.p2Points:                 16,
     UIElementTags.team1RunningTotal:        18,
     UIElementTags.team2RunningTotal:        18,
+    UIElementTags.p1TargetPointsForSL:      24,
+    UIElementTags.p2TargetPointsForSL:      24,
+
+
     
     // frame label text sizes
     UIElementTags.frameP1Score:             14,
@@ -154,6 +163,18 @@ func addLabelToView(view: UIView, tag: UIElementTags, text: String) {
     label.textAlignment = .center
     label.textColor = UIColor.blue
     label.text = text
+    view.addSubview(label)
+}
+
+func circleTargetPoints(view: UIView, tag: UIElementTags, sl: Int) {
+    let tuple1: (x: Int, y: Int, width: Int,height: Int) = UIElementPositions[tag]!
+    let targetPointPositions: [Int] = [101, 146, 197,248, 316, 381, 461, 548, 635]
+    let label: UILabel = UILabel(frame: CGRect(x: targetPointPositions[sl-1], y: tuple1.y, width: tuple1.width, height: tuple1.height))
+    label.font = UIFont(name: "ChalkboardSE-Regular", size: 20)
+    label.font = label.font.withSize(labelTextSizes[tag]!)
+    label.textAlignment = .center
+    label.textColor = UIColor.blue
+    label.text = "[ ]"
     view.addSubview(label)
 }
 
@@ -214,6 +235,8 @@ class SingleMatchView: UIView {
         addLabelToView(view: self, tag: UIElementTags.p1BallCount, text: String(describing: NineBallSingleMatch.getPlayerTargetPoints(player: p1)))
         addLabelToView(view: self, tag: UIElementTags.p2SL, text: String(p2.skillLevel))
         addLabelToView(view: self, tag: UIElementTags.p2BallCount, text: String(describing: NineBallSingleMatch.getPlayerTargetPoints(player: p2)))
+        circleTargetPoints(view: self, tag: UIElementTags.p1TargetPointsForSL, sl: p1.skillLevel)
+        circleTargetPoints(view: self, tag: UIElementTags.p2TargetPointsForSL, sl: p2.skillLevel)
         
         addFrames()
         
@@ -308,8 +331,7 @@ class ToPrintView: UIView {
         // Add all SingleMatch scores
         self.addScoresToView(leagueMatch: leagueMatch)
         
-        
-        createPdfFromView(fileName: "filledScoreSheet.pdf")
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -338,44 +360,50 @@ class ToPrintView: UIView {
         return img
     }
     
-    func createPdfFromView(fileName: String)
-    {
-        let pdfData = NSMutableData()
-        let tuple1 : (x: Int, y: Int, width: Int, height: Int) = UIElementPositions[UIElementTags.scoreSheetImage]!
-        let bounds: CGRect = CGRect(x: tuple1.x, y: tuple1.y, width: tuple1.width, height: tuple1.height)
-        UIGraphicsBeginPDFContextToData(pdfData, bounds, nil)
-        UIGraphicsBeginPDFPage()
-        
-        guard let pdfContext = UIGraphicsGetCurrentContext() else { return }
-        
-        self.layer.render(in: pdfContext)
-        
-        
-        //add page 2
-        //self.scoreSheetImageView.image = drawPDFfromURL(url: scoreSheetUrl, page: 2)
-        //UIGraphicsBeginPDFPage()
-        //self.scoreSheetImageView.layer.render(in: pdfContext)
-        //finished adding page 2
-        UIGraphicsEndPDFContext()
-        
-        if let documentDirectories = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
-            let documentsFileName = documentDirectories + "/" + fileName
-            debugPrint(documentsFileName)
-            pdfData.write(toFile: documentsFileName, atomically: true)
-        }
+}
+
+func createPdfFromView(view: UIView, fileName: String)
+{
+    let pdfData = NSMutableData()
+    let tuple1 : (x: Int, y: Int, width: Int, height: Int) = UIElementPositions[UIElementTags.scoreSheetImage]!
+    let bounds: CGRect = CGRect(x: tuple1.x, y: tuple1.y, width: tuple1.width, height: tuple1.height)
+    UIGraphicsBeginPDFContextToData(pdfData, bounds, nil)
+    UIGraphicsBeginPDFPage()
+    
+    guard let pdfContext = UIGraphicsGetCurrentContext() else { return }
+    
+    view.layer.render(in: pdfContext)
+    
+    
+    //a dd page 2
+    // view.scoreSheetImageView.image = drawPDFfromURL(url: scoreSheetUrl, page: 2)
+    // UIGraphicsBeginPDFPage()
+    // view.scoreSheetImageView.layer.render(in: pdfContext)
+    //finished adding page 2
+    UIGraphicsEndPDFContext()
+    
+    if let documentDirectories = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+        let documentsFileName = documentDirectories + "/" + fileName
+        debugPrint(documentsFileName)
+        pdfData.write(toFile: documentsFileName, atomically: true)
     }
 }
 
 class PrintPDFViewController: UIViewController {
 
+    //var toPrintView: ToPrintView
+    var scoreSheetURL: URL = URL(fileReferenceLiteralResourceName: "scoresheet.pdf")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let globalTestLeagueMatch = TestLeagueMatch()
 
-        let toPrintView: ToPrintView = ToPrintView(scoreSheetUrl: URL(fileReferenceLiteralResourceName: "scoresheet.pdf"), leagueMatch: globalTestLeagueMatch.currentLeagueMatch)
-        self.view.addSubview(toPrintView)
+        self.view = ToPrintView(scoreSheetUrl: scoreSheetURL, leagueMatch: globalTestLeagueMatch.currentLeagueMatch)
+        //self.view.addSubview(toPrintView)
+        
+        createPdfFromView(view: self.view, fileName: "filledScoreSheet.pdf")
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GeE-Cl-rhJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="TJ5-au-WeI">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -9,7 +9,7 @@
         <!--PrintPDF View Controller-->
         <scene sceneID="kpB-kH-nBH">
             <objects>
-                <viewController id="GeE-Cl-rhJ" customClass="PrintPDFViewController" customModule="PoolScorer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PrintPDFVC" id="GeE-Cl-rhJ" customClass="PrintPDFViewController" customModule="PoolScorer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="J0s-iV-pBI"/>
                         <viewControllerLayoutGuide type="bottom" id="dXo-91-c6A"/>
@@ -23,7 +23,35 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2nQ-pp-hse" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1192.8" y="162.3688155922039"/>
+            <point key="canvasLocation" x="474" y="162"/>
+        </scene>
+        <!--Input Scoresheet View Controller-->
+        <scene sceneID="rkl-Lk-oQZ">
+            <objects>
+                <viewController id="TJ5-au-WeI" customClass="InputScoresheetViewController" customModule="PoolScorer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U9w-dC-LPB"/>
+                        <viewControllerLayoutGuide type="bottom" id="nTW-vY-WIK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cIP-7J-T2p">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h8X-qY-hmh">
+                                <frame key="frameInset" minX="112" minY="318" width="150" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Download Scoresheet"/>
+                                <connections>
+                                    <action selector="OnDownloadButton:" destination="TJ5-au-WeI" eventType="touchUpInside" id="beX-Wr-9n1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Utz-ig-cqK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-182" y="162"/>
         </scene>
     </scenes>
 </document>
