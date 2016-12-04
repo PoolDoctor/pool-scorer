@@ -35,6 +35,66 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
         }
     }
     
+    @IBAction func onPrev(_ sender: Any) {
+        print ("Prev button!")
+        if (currFrameNo > 1) {
+            print ("We can go back framess!")
+            // If this is not the last frame
+            currentFrame = match?.frames[currFrameNo-2]
+            currFrameNo = currFrameNo - 1
+            reloadViews()
+        }
+    }
+    @IBAction func onNext(_ sender: Any) {
+        print ("Next button!")
+        if (currentFrame?.frameEnded == true) {
+            // We can only go to the next frame if the current one is completed
+            // We must create a new frame if this is the last one
+            if (currentFrame == match?.currentFrame) {
+                let alert = UIAlertController(title: "Frame Completed", message: "Frame Ended. Player 1 scored:\(currentFrame?.p1Score) ,Player 2 Scored:\(currentFrame?.p2Score) ,Innings:\(currentFrame?.innings), DeadBalls:\(currentFrame?.deadBallCount).\nWould you like to proceed or edit the frame?", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let proceedHandler = { (action:UIAlertAction!) -> Void in
+                    print ("Proceed Handler")
+                    self.currentFrame?.endFrame(force: true)
+                    
+                    self.currentFrame = Frame(p1Needs: self.pointsNeeded(skill: (self.match?.hostPlayer.skillLevel)!), p2Needs: self.pointsNeeded(skill: (self.match?.visitingPlayer.skillLevel)!), p1TimeOutsAllowed: 2, p2TimeOutsAllowed: 2)
+                    self.match?.frames.append(self.currentFrame!)
+                    self.currFrameNo = self.match?.frames.count
+                }
+                
+                let editHandler = { (action:UIAlertAction!) -> Void in
+                    print ("Edit Handler")
+                    self.currentFrame?.endFrame(force: true)
+                }
+                
+                alert.addAction(UIAlertAction(title: "Proceed", style: UIAlertActionStyle.default,handler: proceedHandler ))
+                alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.default,handler: editHandler))
+                
+            } else {
+                print ("This is not the last frame!")
+                // If this is not the last frame
+                currentFrame = match?.frames[currFrameNo]
+                currFrameNo = currFrameNo + 1
+            }
+            reloadViews()
+        } else {
+            let alert = UIAlertController(title: "Frame Incomplete", message: "Only \(currentFrame!.totalSoFar) points out of \(Frame.MAX_POINTS_PER_FRAME) in this frame were accounted for. Do you want to mark the remaining \(Frame.MAX_POINTS_PER_FRAME - currentFrame!.totalSoFar) balls dead?", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let yesHandler = { (action:UIAlertAction!) -> Void in
+                self.currentFrame?.endFrame(force: true)
+                
+                self.currentFrame = Frame(p1Needs: self.pointsNeeded(skill: (self.match?.hostPlayer.skillLevel)!), p2Needs: self.pointsNeeded(skill: (self.match?.visitingPlayer.skillLevel)!), p1TimeOutsAllowed: 2, p2TimeOutsAllowed: 2)
+                self.match?.frames.append(self.currentFrame!)
+                self.currFrameNo = self.match?.frames.count
+
+            }
+            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default,handler: yesHandler))
+            alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default,handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    @IBOutlet weak var prevFrameButton: UIButton!
+    @IBOutlet weak var nextFrameButton: UIButton!
     @IBOutlet weak var p1scoreView: ScoringView!
     @IBOutlet weak var p2scoreView: ScoringView!
     var match : SingleMatch?
@@ -55,8 +115,12 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
             currFrameNo = 1
         } else {
             currFrameNo = match?.frames.count
-            currentFrame = match?.frames[currFrameNo - 1]
+            currentFrame = match?.currentFrame
         }
+        reloadViews()
+    }
+    
+    func reloadViews () {
         p1scoreView.playerName.text = match?.player1.firstName
         p2scoreView.playerName.text = match?.player2.firstName
         p1scoreView.playerSkill.text = String(describing: match!.player1.skillLevel)
@@ -72,21 +136,26 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
         p1scoreView.scoreDecButton.addTarget(self, action: #selector(p1changeScore), for: UIControlEvents.touchUpInside)
         p1scoreView.defenseIncButton.addTarget(self, action: #selector(p1changeDef), for: UIControlEvents.touchUpInside)
         p1scoreView.defenseDecButton.addTarget(self, action: #selector(p1changeDef), for: UIControlEvents.touchUpInside)
-
+        
         p2scoreView.scoreIncButton.addTarget(self, action: #selector(p2changeScore), for: UIControlEvents.touchUpInside)
         p2scoreView.scoreDecButton.addTarget(self, action: #selector(p2changeScore), for: UIControlEvents.touchUpInside)
         p2scoreView.defenseIncButton.addTarget(self, action: #selector(p2changeDef), for: UIControlEvents.touchUpInside)
         p2scoreView.defenseDecButton.addTarget(self, action: #selector(p2changeDef), for: UIControlEvents.touchUpInside)
-
         
+        frameNoLabel.text = String(describing: currFrameNo!)
+        if (currentFrame?.frameEnded == true) {
+            frameStatusLabel.text = "Ended"
+        } else {
+            frameStatusLabel.text = "In Progress"
+        }
+            
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
     
     func p1changeScore(sender: UIButton) {
         if (sender.titleLabel?.text == "+") {
@@ -96,6 +165,7 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
         }
         print("The p1 current frame points \(currentFrame?.p1Score)")
         p1scoreView.scoreLabel.text = String(describing: currentFrame!.p1Score)
+        reloadViews()
     }
     func p1changeDef(sender: UIButton) {
         if (sender.titleLabel?.text == "+") {
@@ -114,6 +184,7 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
         }
         print("The p2 current frame points \(currentFrame?.p2Score)")
         p2scoreView.scoreLabel.text = String(describing: currentFrame!.p2Score)
+        reloadViews()
         
     }
     func p2changeDef(sender: UIButton) {
