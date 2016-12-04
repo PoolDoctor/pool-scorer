@@ -143,8 +143,8 @@ class TestLeagueMatch {
     
     func playRandomMatch(match: SingleMatch) {
         match.startMatch(hostPlayerBrokeFirst: true)
-        while match.status != SingleMatch.MatchStatus.Player1Won &&
-            match.status != SingleMatch.MatchStatus.Player2Won {
+        while match.status != .Player1Won &&
+            match.status != .Player2Won {
                 let random_num = Int(arc4random_uniform(11) + 1) // generates 0 to 10.
                 switch random_num%11 {
                 case 0:

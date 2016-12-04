@@ -41,10 +41,14 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
     var currFrameNo : Int!
     var currentFrame : Frame?
     
-    @IBOutlet weak var frameLabel: UILabel!
+    @IBOutlet weak var frameNoLabel: UILabel!
+    @IBOutlet weak var frameStatusLabel: UILabel!
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        if (match!.status == .Unstarted) {
+            match!.status = .Ongoing
+        }
         if ((match?.frames.count)! == 0) {
             currentFrame = Frame(p1Needs: pointsNeeded(skill: (match?.hostPlayer.skillLevel)!), p2Needs: pointsNeeded(skill: (match?.visitingPlayer.skillLevel)!), p1TimeOutsAllowed: 2, p2TimeOutsAllowed: 2)
             match?.frames.append(currentFrame!)
@@ -53,18 +57,27 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
             currFrameNo = match?.frames.count
             currentFrame = match?.frames[currFrameNo - 1]
         }
-        p1scoreView.scoreLabel.text = String(describing: currentFrame?.p1Score)
-        p2scoreView.scoreLabel.text = String(describing: currentFrame?.p2Score)
-        p1scoreView.defenseLabel.text = String(describing: match?.p1Defenses)
-        p2scoreView.defenseLabel.text = String(describing: match?.p2Defenses)
+        p1scoreView.playerName.text = match?.player1.firstName
+        p2scoreView.playerName.text = match?.player2.firstName
+        p1scoreView.playerSkill.text = String(describing: match!.player1.skillLevel)
+        p2scoreView.playerSkill.text = String(describing: match!.player2.skillLevel)
+        
+        p1scoreView.scoreLabel.text = String(describing: currentFrame!.p1Score)
+        p2scoreView.scoreLabel.text = String(describing: currentFrame!.p2Score)
+        
+        p1scoreView.defenseLabel.text = String(describing: match!.p1Defenses)
+        p2scoreView.defenseLabel.text = String(describing: match!.p2Defenses)
         
         p1scoreView.scoreIncButton.addTarget(self, action: #selector(p1changeScore), for: UIControlEvents.touchUpInside)
-        
         p1scoreView.scoreDecButton.addTarget(self, action: #selector(p1changeScore), for: UIControlEvents.touchUpInside)
+        p1scoreView.defenseIncButton.addTarget(self, action: #selector(p1changeDef), for: UIControlEvents.touchUpInside)
+        p1scoreView.defenseDecButton.addTarget(self, action: #selector(p1changeDef), for: UIControlEvents.touchUpInside)
 
         p2scoreView.scoreIncButton.addTarget(self, action: #selector(p2changeScore), for: UIControlEvents.touchUpInside)
-        
         p2scoreView.scoreDecButton.addTarget(self, action: #selector(p2changeScore), for: UIControlEvents.touchUpInside)
+        p2scoreView.defenseIncButton.addTarget(self, action: #selector(p2changeDef), for: UIControlEvents.touchUpInside)
+        p2scoreView.defenseDecButton.addTarget(self, action: #selector(p2changeDef), for: UIControlEvents.touchUpInside)
+
         
     }
 
@@ -72,6 +85,9 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    
     func p1changeScore(sender: UIButton) {
         if (sender.titleLabel?.text == "+") {
             currentFrame?.incP1Score()
@@ -79,16 +95,16 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
             currentFrame?.decP1Score()
         }
         print("The p1 current frame points \(currentFrame?.p1Score)")
-        p1scoreView.scoreLabel.text = String(describing: currentFrame?.p1Score)
+        p1scoreView.scoreLabel.text = String(describing: currentFrame!.p1Score)
     }
-    func p1changeDefense(sender: UIButton) {
+    func p1changeDef(sender: UIButton) {
         if (sender.titleLabel?.text == "+") {
             match?.p1Defenses += 1
         } else if (sender.titleLabel?.text == "-") {
             match?.p1Defenses -= 1
         }
         print("The p1 current def points \(match?.p1Defenses)")
-        p1scoreView.defenseLabel.text = String(describing: match?.p1Defenses)
+        p1scoreView.defenseLabel.text = String(describing: match!.p1Defenses)
     }
     func p2changeScore(sender: UIButton) {
         if (sender.titleLabel?.text == "+") {
@@ -97,17 +113,17 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
             currentFrame?.decP2Score()
         }
         print("The p2 current frame points \(currentFrame?.p2Score)")
-        p2scoreView.scoreLabel.text = String(describing: currentFrame?.p2Score)
+        p2scoreView.scoreLabel.text = String(describing: currentFrame!.p2Score)
         
     }
-    func p2changeDefense(sender: UIButton) {
+    func p2changeDef(sender: UIButton) {
         if (sender.titleLabel?.text == "+") {
             match?.p2Defenses += 1
         } else if (sender.titleLabel?.text == "-") {
             match?.p2Defenses -= 1
         }
         print("The p2 current def points \(match?.p2Defenses)")
-        p2scoreView.defenseLabel.text = String(describing: match?.p2Defenses)
+        p2scoreView.defenseLabel.text = String(describing: match!.p2Defenses)
     }
 
     /*

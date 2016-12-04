@@ -72,7 +72,7 @@ class Frame: NSObject {
         
     }
     
-    func incP1Score () {
+    func incP1Score () -> Int {
         if !frameEnded {
             p1Score += 1
             //print("Player 1 scored. Current score : \(p1Score) - \(p2Score)")
@@ -83,7 +83,9 @@ class Frame: NSObject {
                 //print("Player 1 won")
                 endFrame(force: true)
             }
+            return 1
         }
+        return 0
     }
     
     func incDeadBallCount () {
@@ -103,7 +105,7 @@ class Frame: NSObject {
 
 
     
-    func incP2Score () {
+    func incP2Score () -> Int {
         if !frameEnded {
             p2Score += 1
             //print("Player 2 scored. Current score : \(p1Score) - \(p2Score)")
@@ -114,15 +116,25 @@ class Frame: NSObject {
                 //print("Player 2 won")
                 endFrame(force: true)
             }
+            return 1
         }
+        return 0
     }
     
-    func decP1Score () {
-        p1Score -= 1
+    func decP1Score () -> Int {
+        if !frameEnded {
+            p1Score -= 1
+            return 1
+        }
+        return 0
     }
     
-    func decP2Score () {
-        p2Score -= 1
+    func decP2Score () -> Int {
+        if !frameEnded {
+            p2Score -= 1
+            return 1
+        }
+        return 0
     }
 
     

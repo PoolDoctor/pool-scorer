@@ -55,21 +55,33 @@ class LeagueMatchSummaryViewController: UIViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (leagueMatch != nil) {
-            print("it's not nil!")
-        } else {
-            print ("it's nil")
-        }
         if (indexPath.row + 1 <= leagueMatch!.matches.count) {
+            let sMatch = leagueMatch!.matches[indexPath.row] as SingleMatch?
             let cell  = tableView.dequeueReusableCell(withIdentifier: "MatchTableViewCell", for: indexPath) as! MatchTableViewCell
             cell.matchName.text = "Match \((indexPath.row + 1))"
-            cell.matchStatus.text = "In Progress"
-            cell.button.titleLabel?.text = "Resume"
+            var statusText : String
+            var buttonText : String
+            switch (sMatch!.status) {
+                case .Unstarted:
+                    statusText = "Unstarted"
+                    buttonText = "Start"
+                case .Ongoing:
+                    statusText = "Ongoing"
+                    buttonText = "Resume"
+                case .Player1Won:
+                    statusText = "P1 Victory"
+                    buttonText = "Results"
+                case .Player2Won:
+                    statusText = "P2 Victory"
+                    buttonText = "Results"
+            }
+            
+            cell.matchStatus.text = statusText
+            cell.button.setTitle(buttonText, for: .normal)             
             cell.button.addTarget(self, action: #selector(buttonAction), for: UIControlEvents.touchUpInside)
             return cell
         } else {
             let cell = UITableViewCell()
-            //3A774B
             cell.backgroundColor = UIColor(red: CGFloat(0x3A/255.0), green: CGFloat(0x77/255.0), blue: CGFloat(0x4B/255.0), alpha: 1.0)
             return cell
         }

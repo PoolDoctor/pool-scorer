@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum MatchStatus {
+    case Unstarted, Ongoing, Player1Won, Player2Won
+}
+
 class SingleMatch: NSObject {
     var hostPlayer: Player
     var visitingPlayer: Player
@@ -84,9 +88,6 @@ class SingleMatch: NSObject {
         print ("Starting match between \(hostPlayer.name) and \(visitingPlayer.name)")
     }
     
-    enum MatchStatus {
-        case Unstarted, Ongoing, Player1Won, Player2Won
-    }
     
     
     func startMatch(hostPlayerBrokeFirst: Bool) {
