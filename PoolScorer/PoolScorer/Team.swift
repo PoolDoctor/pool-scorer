@@ -13,7 +13,7 @@ class Team: NSObject {
     static var MAX_TEAM_SIZE: Int = 8
     var name: String
     var teamId: Int
-    var homeLocation: String
+    //var homeLocation: String?
     var members: [Player]
     
     func addPlayer(player: Player) {
@@ -29,10 +29,16 @@ class Team: NSObject {
         }
     }
     
-    init(name: String, teamId: Int, homeLocation: String) {
+//    init(name: String, teamId: Int, homeLocation: String) {
+//        self.name = name
+//        self.teamId = teamId
+//        self.homeLocation = homeLocation
+//        self.members = [Player]()
+//    }
+    
+    init(name: String, teamId: Int) {
         self.name = name
         self.teamId = teamId
-        self.homeLocation = homeLocation
         self.members = [Player]()
     }
 }

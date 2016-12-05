@@ -15,8 +15,10 @@ class TestLeagueMatch {
     var currentLeagueMatch: LeagueMatch
     
     init() {
-        let hosts = Team(name: "Justice League", teamId: 30201, homeLocation: "Edgies Billiards")
-        let visitors = Team(name: "Avengers", teamId: 30210, homeLocation: "Lucky Shot Billiards")
+        let hosts = Team(name: "Justice League", teamId: 30201)
+        //, homeLocation: "Edgies Billiards")
+        let visitors = Team(name: "Avengers", teamId: 30210)
+        //, homeLocation: "Lucky Shot Billiards")
         
         //8 players in host team
         hosts.addPlayer(player: Player(firstName: "Clark", lastName: "Kent", playerId: 48952, skillLevel: 2, team: hosts))
