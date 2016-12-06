@@ -142,6 +142,7 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
             // We can only go to the next frame if the current one is completed
             // We must create a new frame if this is the last one
             if (currentFrame == match?.currentFrame) {
+                print("This is the current frame")
                 let alert = UIAlertController(title: "Frame Completed", message: "Frame Ended. Player 1 scored:\(currentFrame?.p1Score) ,Player 2 Scored:\(currentFrame?.p2Score) ,Innings:\(currentFrame?.innings), DeadBalls:\(currentFrame?.deadBallCount).\nWould you like to proceed or edit the frame?", preferredStyle: UIAlertControllerStyle.alert)
                 
                 let proceedHandler = { (action:UIAlertAction!) -> Void in
@@ -151,11 +152,13 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
                     self.currentFrame = Frame(p1Needs: self.pointsNeeded(skill: (self.match?.hostPlayer.skillLevel)!), p2Needs: self.pointsNeeded(skill: (self.match?.visitingPlayer.skillLevel)!), p1TimeOutsAllowed: 2, p2TimeOutsAllowed: 2)
                     self.match?.frames.append(self.currentFrame!)
                     self.currFrameNo = self.match?.frames.count
+                    print ("end of proceed handler flow")
                 }
                 
                 let editHandler = { (action:UIAlertAction!) -> Void in
                     print ("Edit Handler")
                     self.currentFrame?.endFrame(force: true)
+                    print ("end of edit handler flow")
                 }
                 
                 alert.addAction(UIAlertAction(title: "Proceed", style: UIAlertActionStyle.default,handler: proceedHandler ))
@@ -167,6 +170,7 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
                 currentFrame = match?.frames[currFrameNo]
                 currFrameNo = currFrameNo + 1
             }
+            print ("end of first flow")
             reloadViews()
         } else {
             let alert = UIAlertController(title: "Frame Incomplete", message: "Only \(currentFrame!.totalSoFar) points out of \(Frame.MAX_POINTS_PER_FRAME) in this frame were accounted for. Do you want to mark the remaining \(Frame.MAX_POINTS_PER_FRAME - currentFrame!.totalSoFar) balls dead?", preferredStyle: UIAlertControllerStyle.alert)
