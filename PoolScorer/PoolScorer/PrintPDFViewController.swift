@@ -338,61 +338,66 @@ class ToPrintView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func drawPDFfromURL(url: URL, page: Int = 1) -> UIImage? {
-        guard let document = CGPDFDocument(url as CFURL) else { return nil }
-        guard let page = document.page(at: page) else { return nil }
-        print("rotation angle is : \(page.rotationAngle)")
-        
-        let pageRect = page.getBoxRect(.mediaBox)
-        let renderer = UIGraphicsImageRenderer(size: pageRect.size)
-        let img = renderer.image { ctx in
-            UIColor.white.set()
-            ctx.fill(pageRect)
-            print("height is : \(pageRect.size.height)")
-            print("width is: \(pageRect.size.width)")
-            
-            ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height)
-            ctx.cgContext.scaleBy(x: 1.0, y: -1.0)
-            //ctx.cgContext.rotate(by: CGFloat(M_PI) / CGFloat(2.0))
-            ctx.cgContext.drawPDFPage(page)
-        }
-        
-        return img
-    }
     
 }
 
-func createPdfFromView(view: UIView, fileName: String)
-{
-    let pdfData = NSMutableData()
-    let tuple1 : (x: Int, y: Int, width: Int, height: Int) = UIElementPositions[UIElementTags.scoreSheetImage]!
-    let bounds: CGRect = CGRect(x: tuple1.x, y: tuple1.y, width: tuple1.width, height: tuple1.height)
-    UIGraphicsBeginPDFContextToData(pdfData, bounds, nil)
-    UIGraphicsBeginPDFPage()
+func drawPDFfromURL(url: URL, page: Int = 1) -> UIImage? {
+    guard let document = CGPDFDocument(url as CFURL) else { return nil }
+    guard let page = document.page(at: page) else { return nil }
+    print("rotation angle is : \(page.rotationAngle)")
     
-    guard let pdfContext = UIGraphicsGetCurrentContext() else { return }
-    
-    view.layer.render(in: pdfContext)
-    
-    
-    //a dd page 2
-    // view.scoreSheetImageView.image = drawPDFfromURL(url: scoreSheetUrl, page: 2)
-    // UIGraphicsBeginPDFPage()
-    // view.scoreSheetImageView.layer.render(in: pdfContext)
-    //finished adding page 2
-    UIGraphicsEndPDFContext()
-    
-    if let documentDirectories = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
-        let documentsFileName = documentDirectories + "/" + fileName
-        debugPrint(documentsFileName)
-        pdfData.write(toFile: documentsFileName, atomically: true)
+    let pageRect = page.getBoxRect(.mediaBox)
+    let renderer = UIGraphicsImageRenderer(size: pageRect.size)
+    let img = renderer.image { ctx in
+        UIColor.white.set()
+        ctx.fill(pageRect)
+        print("height is : \(pageRect.size.height)")
+        print("width is: \(pageRect.size.width)")
+        
+        ctx.cgContext.translateBy(x: 0.0, y: pageRect.size.height)
+        ctx.cgContext.scaleBy(x: 1.0, y: -1.0)
+        //ctx.cgContext.rotate(by: CGFloat(M_PI) / CGFloat(2.0))
+        ctx.cgContext.drawPDFPage(page)
     }
+    
+    return img
 }
+
 
 class PrintPDFViewController: UIViewController {
 
+    
     //var toPrintView: ToPrintView
     var scoreSheetURL: URL = URL(fileReferenceLiteralResourceName: "scoresheet.pdf")
+    
+    
+    func createPdfFromView(view: ToPrintView, fileName: String)
+    {
+        let pdfData = NSMutableData()
+        let tuple1 : (x: Int, y: Int, width: Int, height: Int) = UIElementPositions[UIElementTags.scoreSheetImage]!
+        let bounds: CGRect = CGRect(x: tuple1.x, y: tuple1.y, width: tuple1.width, height: tuple1.height)
+        UIGraphicsBeginPDFContextToData(pdfData, bounds, nil)
+        UIGraphicsBeginPDFPage()
+        
+        guard let pdfContext = UIGraphicsGetCurrentContext() else { return }
+        
+        view.layer.render(in: pdfContext)
+        
+        
+        //add page 2
+        view.scoreSheetImageView.image = drawPDFfromURL(url: scoreSheetURL, page: 2)
+        UIGraphicsBeginPDFPage()
+        view.scoreSheetImageView.layer.render(in: pdfContext)
+        //finished adding page 2
+        UIGraphicsEndPDFContext()
+        
+        if let documentDirectories = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
+            let documentsFileName = documentDirectories + "/" + fileName
+            debugPrint(documentsFileName)
+            pdfData.write(toFile: documentsFileName, atomically: true)
+        }
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -401,7 +406,7 @@ class PrintPDFViewController: UIViewController {
         self.view = ToPrintView(scoreSheetUrl: scoreSheetURL, leagueMatch: globalTestLeagueMatch.currentLeagueMatch)
         //self.view.addSubview(toPrintView)
         
-        createPdfFromView(view: self.view, fileName: "filledScoreSheet.pdf")
+        createPdfFromView(view: self.view as! ToPrintView, fileName: "filledScoreSheet.pdf")
     }
 
     override func didReceiveMemoryWarning() {
