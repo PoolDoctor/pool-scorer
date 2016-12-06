@@ -64,6 +64,18 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
             currFrameNo = match?.frames.count
             currentFrame = match?.currentFrame
         }
+        
+        p1scoreView.defenseIncButton.layer.cornerRadius = p1scoreView.defenseIncButton.bounds.size.width*0.5
+        p1scoreView.defenseDecButton.layer.cornerRadius = p1scoreView.defenseDecButton.bounds.size.width*0.5
+        p1scoreView.scoreIncButton.layer.cornerRadius = p1scoreView.scoreIncButton.bounds.size.width*0.5
+        p1scoreView.scoreDecButton.layer.cornerRadius = p1scoreView.scoreDecButton.bounds.size.width*0.5
+        
+        p2scoreView.defenseIncButton.layer.cornerRadius = p2scoreView.defenseIncButton.bounds.size.width*0.5
+        p2scoreView.defenseDecButton.layer.cornerRadius = p2scoreView.defenseDecButton.bounds.size.width*0.5
+        p2scoreView.scoreIncButton.layer.cornerRadius = p2scoreView.scoreIncButton.bounds.size.width*0.5
+        p2scoreView.scoreDecButton.layer.cornerRadius = p2scoreView.scoreDecButton.bounds.size.width*0.5
+        
+        
         prevFrameButton.layer.cornerRadius = 2.0
         prevFrameButton.layer.masksToBounds = true
         nextFrameButton.layer.cornerRadius = 2.0
@@ -143,7 +155,7 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
             // We must create a new frame if this is the last one
             if (currentFrame == match?.currentFrame) {
                 print("This is the current frame")
-                let alert = UIAlertController(title: "Frame Completed", message: "Frame Ended. Player 1 scored:\(currentFrame?.p1Score) ,Player 2 Scored:\(currentFrame?.p2Score) ,Innings:\(currentFrame?.innings), DeadBalls:\(currentFrame?.deadBallCount).\nWould you like to proceed or edit the frame?", preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: "Frame Completed", message: "Frame Ended. Player 1 scored:\(currentFrame!.p1Score) ,Player 2 Scored:\(currentFrame!.p2Score) ,Innings:\(currentFrame!.innings), DeadBalls:\(currentFrame!.deadBallCount).\nWould you like to proceed or edit the frame?", preferredStyle: UIAlertControllerStyle.alert)
                 
                 let proceedHandler = { (action:UIAlertAction!) -> Void in
                     print ("Proceed Handler")
@@ -152,12 +164,13 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
                     self.currentFrame = Frame(p1Needs: self.pointsNeeded(skill: (self.match?.hostPlayer.skillLevel)!), p2Needs: self.pointsNeeded(skill: (self.match?.visitingPlayer.skillLevel)!), p1TimeOutsAllowed: 2, p2TimeOutsAllowed: 2)
                     self.match?.frames.append(self.currentFrame!)
                     self.currFrameNo = self.match?.frames.count
+                    self.reloadViews()
                     print ("end of proceed handler flow")
                 }
                 
                 let editHandler = { (action:UIAlertAction!) -> Void in
                     print ("Edit Handler")
-                    self.currentFrame?.endFrame(force: true)
+                    self.currentFrame?.frameEnded = false
                     print ("end of edit handler flow")
                 }
                 
