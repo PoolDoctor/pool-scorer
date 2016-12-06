@@ -775,7 +775,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="onEndInning:" destination="EbK-ma-MW7" eventType="touchUpInside" id="aJx-H6-cyZ"/>
-                                                    <action selector="onNext:" destination="EbK-ma-MW7" eventType="touchUpInside" id="pSU-Fk-BGf"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EYP-xu-5TI">
@@ -788,7 +787,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="onDeadBall:" destination="EbK-ma-MW7" eventType="touchUpInside" id="D26-ec-nCk"/>
-                                                    <action selector="onNext:" destination="EbK-ma-MW7" eventType="touchUpInside" id="dvc-Hy-sv3"/>
                                                 </connections>
                                             </button>
                                         </subviews>

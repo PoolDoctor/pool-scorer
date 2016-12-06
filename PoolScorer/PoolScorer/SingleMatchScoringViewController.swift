@@ -64,6 +64,18 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
             currFrameNo = match?.frames.count
             currentFrame = match?.currentFrame
         }
+        
+        p1scoreView.defenseIncButton.layer.cornerRadius = p1scoreView.defenseIncButton.bounds.size.width*0.5
+        p1scoreView.defenseDecButton.layer.cornerRadius = p1scoreView.defenseDecButton.bounds.size.width*0.5
+        p1scoreView.scoreIncButton.layer.cornerRadius = p1scoreView.scoreIncButton.bounds.size.width*0.5
+        p1scoreView.scoreDecButton.layer.cornerRadius = p1scoreView.scoreDecButton.bounds.size.width*0.5
+        
+        p2scoreView.defenseIncButton.layer.cornerRadius = p2scoreView.defenseIncButton.bounds.size.width*0.5
+        p2scoreView.defenseDecButton.layer.cornerRadius = p2scoreView.defenseDecButton.bounds.size.width*0.5
+        p2scoreView.scoreIncButton.layer.cornerRadius = p2scoreView.scoreIncButton.bounds.size.width*0.5
+        p2scoreView.scoreDecButton.layer.cornerRadius = p2scoreView.scoreDecButton.bounds.size.width*0.5
+        
+        
         prevFrameButton.layer.cornerRadius = 2.0
         prevFrameButton.layer.masksToBounds = true
         nextFrameButton.layer.cornerRadius = 2.0
@@ -82,8 +94,8 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
         p1scoreView.playerSkill.text = String(describing: match!.player1.skillLevel)
         p2scoreView.playerSkill.text = String(describing: match!.player2.skillLevel)
         
-        p1scoreView.scoreLabel.text = String(describing: currentFrame!.p1Score)
-        p2scoreView.scoreLabel.text = String(describing: currentFrame!.p2Score)
+        p1scoreView.scoreLabel.text = String(describing: match!.p1Score)
+        p2scoreView.scoreLabel.text = String(describing: match!.p2Score)
         
         p1scoreView.defenseLabel.text = String(describing: match!.p1Defenses)
         p2scoreView.defenseLabel.text = String(describing: match!.p2Defenses)
@@ -143,7 +155,7 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
             // We must create a new frame if this is the last one
             if (currentFrame == match?.currentFrame) {
                 print("This is the current frame")
-                let alert = UIAlertController(title: "Frame Completed", message: "Frame Ended. Player 1 scored:\(currentFrame?.p1Score) ,Player 2 Scored:\(currentFrame?.p2Score) ,Innings:\(currentFrame?.innings), DeadBalls:\(currentFrame?.deadBallCount).\nWould you like to proceed or edit the frame?", preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: "Frame Completed", message: "Frame Ended. Player 1 scored:\(currentFrame!.p1Score) ,Player 2 Scored:\(currentFrame!.p2Score) ,Innings:\(currentFrame!.innings), DeadBalls:\(currentFrame!.deadBallCount).\nWould you like to proceed or edit the frame?", preferredStyle: UIAlertControllerStyle.alert)
                 
                 let proceedHandler = { (action:UIAlertAction!) -> Void in
                     print ("Proceed Handler")
@@ -152,18 +164,19 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
                     self.currentFrame = Frame(p1Needs: self.pointsNeeded(skill: (self.match?.hostPlayer.skillLevel)!), p2Needs: self.pointsNeeded(skill: (self.match?.visitingPlayer.skillLevel)!), p1TimeOutsAllowed: 2, p2TimeOutsAllowed: 2)
                     self.match?.frames.append(self.currentFrame!)
                     self.currFrameNo = self.match?.frames.count
+                    self.reloadViews()
                     print ("end of proceed handler flow")
                 }
                 
                 let editHandler = { (action:UIAlertAction!) -> Void in
                     print ("Edit Handler")
-                    self.currentFrame?.endFrame(force: true)
+                    self.currentFrame?.frameEnded = false
                     print ("end of edit handler flow")
                 }
                 
                 alert.addAction(UIAlertAction(title: "Proceed", style: UIAlertActionStyle.default,handler: proceedHandler ))
                 alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.default,handler: editHandler))
-                
+                self.present(alert, animated: true, completion: nil)
             } else {
                 print ("This is not the last frame!")
                 // If this is not the last frame
@@ -181,12 +194,13 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
                 self.currentFrame = Frame(p1Needs: self.pointsNeeded(skill: (self.match?.hostPlayer.skillLevel)!), p2Needs: self.pointsNeeded(skill: (self.match?.visitingPlayer.skillLevel)!), p1TimeOutsAllowed: 2, p2TimeOutsAllowed: 2)
                 self.match?.frames.append(self.currentFrame!)
                 self.currFrameNo = self.match?.frames.count
-                
+                self.reloadViews()
             }
             alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default,handler: yesHandler))
             alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default,handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
+        print("end of flow")
     }
     
     
@@ -197,7 +211,7 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
             currentFrame?.decP1Score()
         }
         print("The p1 current frame points \(currentFrame?.p1Score)")
-        p1scoreView.scoreLabel.text = String(describing: currentFrame!.p1Score)
+        p1scoreView.scoreLabel.text = String(describing: match!.p1Score)
         reloadViews()
     }
     func p1changeDef(sender: UIButton) {
@@ -216,7 +230,7 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
             currentFrame?.decP2Score()
         }
         print("The p2 current frame points \(currentFrame?.p2Score)")
-        p2scoreView.scoreLabel.text = String(describing: currentFrame!.p2Score)
+        p2scoreView.scoreLabel.text = String(describing: match!.p2Score)
         reloadViews()
         
     }
