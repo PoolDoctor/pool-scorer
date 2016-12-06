@@ -163,7 +163,7 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
                 
                 alert.addAction(UIAlertAction(title: "Proceed", style: UIAlertActionStyle.default,handler: proceedHandler ))
                 alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.default,handler: editHandler))
-                
+                self.present(alert, animated: true, completion: nil)
             } else {
                 print ("This is not the last frame!")
                 // If this is not the last frame
@@ -181,12 +181,13 @@ class SingleMatchScoringViewController: UIViewController, ScoringViewDelegate {
                 self.currentFrame = Frame(p1Needs: self.pointsNeeded(skill: (self.match?.hostPlayer.skillLevel)!), p2Needs: self.pointsNeeded(skill: (self.match?.visitingPlayer.skillLevel)!), p1TimeOutsAllowed: 2, p2TimeOutsAllowed: 2)
                 self.match?.frames.append(self.currentFrame!)
                 self.currFrameNo = self.match?.frames.count
-                
+                self.reloadViews()
             }
             alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default,handler: yesHandler))
             alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default,handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
+        print("end of flow")
     }
     
     
