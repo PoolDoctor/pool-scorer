@@ -28,6 +28,14 @@ class CreateMatchViewController: UIViewController {
     var player2 : Player?
     weak var delegate : CreateMatchDelegate?
     
+    @IBOutlet weak var player1BrokeFirstSwitch: UILabel!
+    @IBOutlet weak var playerBrokeFirstLabel: UILabel!
+    
+    func firstPlayerNameDidChange(textField: UITextField) {
+        playerBrokeFirstLabel.text = firstPlayerName.text
+        //your code
+    }
+    
     @IBAction func startMatchAction(_ sender: Any) {
         var firstArr = firstPlayerName.text?.components(separatedBy: " ")
         var secondArr = secondPlayerName.text?.components(separatedBy: " ")
@@ -54,6 +62,9 @@ class CreateMatchViewController: UIViewController {
         super.viewDidLoad()
         player?.firstName = "MarvinKKK"
         // Do any additional setup after loading the view.
+        
+        firstPlayerName.addTarget(self, action: #selector(self.firstPlayerNameDidChange(textField:)), for: UIControlEvents.editingChanged)
+        //firstPlayerName.addTarget(self, action: self.firstPlayerNameDidChange(_:), for: UIControlEvents.editingChanged)
     }
 
     override func didReceiveMemoryWarning() {
